@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passer une Commande — Maison Dorée</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="commande.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-name">Maison Dorée</span>
+      <span class="nav-logo-tagline">Pâtisserie d'exception</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="service-client.html">Service Client</a></li>
+      <li><a href="commande.html" class="active">Passer une commande</a></li>
+      <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
+    </ul>
+    <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="page-header">
+    <h1>🛒 Passer une Commande</h1>
+    <p>Choisissez parmi notre carte complète et composez votre commande</p>
+  </div>
+
+  <main class="commande-main">
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCakes('all',this)">Tous</button>
+      <button class="filter-btn" onclick="filterCakes('classique',this)">Classiques</button>
+      <button class="filter-btn" onclick="filterCakes('fruite',this)">Fruités</button>
+      <button class="filter-btn" onclick="filterCakes('chocolat',this)">Chocolat</button>
+      <button class="filter-btn" onclick="filterCakes('exotique',this)">Exotiques</button>
+    </div>
+
+    <!-- Légende des tailles -->
+    <div class="sizes-legend">
+      <div class="size-pill size-s"><span class="spill-dot"></span><strong>Petite</strong> — 4 pers. · prix grande × ⅔</div>
+      <div class="size-pill size-m"><span class="spill-dot"></span><strong>Moyenne</strong> — 8 pers.</div>
+      <div class="size-pill size-l"><span class="spill-dot"></span><strong>Grande</strong> — 12 pers. · prix référence</div>
+    </div>
+<!-- nb : image mal optimiser donc répétition mais bon , c'est quand meme joli  -->
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card" data-cat="fruite" data-grande="7500" data-moyenne="5500" style="background-image: url(gateau\ fraise.png);background-size: contain;">
+        
+        <div class="product-body">
+          <h3>Fraisier Royal</h3>
+          <p style="color:white;">Génoise vanille, crème mousseline, fraises du marché</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="chocolat" data-grande="9500" data-moyenne="7500">
+        <div class="product-body" style="background-image: url(chocolat.jpeg);
+        background-size: contain;">
+          <div class="product-tags"><span class="tag gold-tag">Premium</span></div>
+          <h3>Opéra Élite</h3>
+          <p style="color: white;">Biscuit joconde, ganache chocolat 75%, crème moka, or comestible</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="fruite" data-grande="8500" data-moyenne="6500"
+      style="background-image: url(macaron\ rose.jpeg);background-size: contain;">
+       
+        <div class="product-body">
+          <div class="product-tags"><span class="tag" style="color: white;">Végétalien ✓</span></div>
+          <h3 style="color: white;">Ispahan Rose</h3>
+          <p style="color: white;">Macaron géant, crème rose, framboises et litchis</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="classique" data-grande="6800" data-moyenne="5000"
+      style ="background-image: url(citron.jpeg);background-size: contain;">
+       
+        <div class="product-body">
+          <div class="product-tags"><span class="tag">Sans gluten ✓</span></div>
+          <h3>Tarte Citron Meringuée</h3>
+          <p style="color: white;">Pâte sablée, crème citron acidulée, meringue légère</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="classique" data-grande="9000" data-moyenne="6800"
+       style="background-image: url(vanille.jpeg);background-size: contain;">
+        
+        <div class="product-body">
+          <div class="product-tags"><span class="tag">Anniversaire</span></div>
+          <h3>Layer Cake Vanille</h3>
+          <p style="color: white;">3 couches de génoise, buttercream caramel, noix de pécan</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="fruite" data-grande="7800" data-moyenne="5800"
+      style="background-image: url(myrtille.jpeg);background-size: contain;">
+        
+        <div class="product-body">
+          <div class="product-tags"><span class="tag">Végétalien ✓</span></div>
+          <h3>Cheesecake Myrtille</h3>
+          <p style="color: white;">Base spéculoos, Philadelphia crémeux, coulis myrtille</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="exotique" data-grande="8200" data-moyenne="6200"
+      style="background-image: url(mangue.jpeg);background-size: cover;">
+        
+        <div class="product-body">
+          <div class="product-tags"><span class="tag">Exotique</span></div>
+          <h3>Mangue-Passion</h3>
+          <p style="color: white;">Dacquoise coco, mousse mangue, insert maracuja</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="classique" data-grande="10500" data-moyenne="7800"
+      style="background-image: url(flan.png);background-size: contain;">
+        <div class="product-body" >
+          <div class="product-tags"><span class="tag gold-tag">Prestige</span></div>
+          <h3>Saint-Honoré</h3>
+          <p style="color: white;">Feuilletage, choux caramélisés, crème Chiboust onctueuse</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="chocolat" data-grande="8000" data-moyenne="6000"
+      style="background-image: url(foret\ noir.jpeg); background-size: cover;">
+       
+        <div class="product-body">
+          <div class="product-tags"><span class="tag">Classique Allemand</span></div>
+          <h3>Forêt-Noire</h3>
+          <p>Génoise cacao, cerises amarena, chantilly, Kirsch</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="classique" data-grande="9500" data-moyenne="7200">
+        <div class="product-body"
+        style="background-image: url(croissant.png); background-size: contain; ">
+          <div class="product-tags"><span class="tag gold-tag">Signature</span></div>
+          <h3>Millefeuille Signature</h3>
+          <p style="color: white;">1000 feuilles de feuilletage, crème pâtissière, glaçage royal</p>
+          <div class="product-options"><label>Taille :</label><div class="size-selector">
+            <button class="size-btn active" data-size="petite" onclick="selectSize(this)"><span>Petite</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="moyenne" onclick="selectSize(this)"><span>Moyenne</span><em class="size-price"></em></button>
+            <button class="size-btn" data-size="grande" onclick="selectSize(this)"><span>Grande</span><em class="size-price"></em></button>
+          </div></div>
+          <div class="product-footer"><span class="product-price"></span>
+            <button class="btn-primary" style="padding:0.6rem 1.2rem;font-size:0.82rem" onclick="addToCartFromCard(this)">Ajouter</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Panier -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h3>🛒 Mon Panier</h3>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+      <div class="cart-items" id="cartItems"><div class="cart-empty">Votre panier est vide</div></div>
+      <div class="cart-footer" id="cartFooter" style="display:none">
+        <div class="cart-total">Total : <strong id="cartTotal">0Frcfa</strong></div>
+        <button class="btn-primary" style="width:100%;margin-bottom:0.6rem" onclick="checkout()">Valider la commande →</button>
+        <a href="livraison.html" class="btn-outline" style="width:100%;text-align:center;display:block;padding:0.6rem;font-size:0.82rem">🛵 Choisir ma livraison</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ══ MODAL COMMANDE (3 étapes) ═══ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+
+      <!-- Barre de progression -->
+      <div class="modal-steps">
+        <div class="mstep active" id="ms1"><span>1</span> Livraison</div>
+        <div class="mstep-line"></div>
+        <div class="mstep" id="ms2"><span>2</span> Paiement</div>
+        <div class="mstep-line"></div>
+        <div class="mstep" id="ms3"><span>3</span> Confirmation</div>
+      </div>
+
+      <!-- ÉTAPE 1 -->
+      <div id="modalStep1">
+        <h2>📦 Informations de livraison</h2>
+        <p class="modal-sub">Remplissez vos coordonnées pour la livraison</p>
+        <div class="form-grid">
+          <div class="form-group"><label>Prénom *</label><input id="fPrenom" type="text" placeholder="Marie" /></div>
+          <div class="form-group"><label>Nom *</label><input id="fNom" type="text" placeholder="Dupont" /></div>
+          <div class="form-group full"><label>Adresse de livraison *</label><input id="fAdresse" type="text" placeholder="12 Rue des Manguiers, Cocody" /></div>
+          <div class="form-group"><label>Téléphone *</label><input id="fTel" type="tel" placeholder="+225 07 XX XX XX" /></div>
+          <div class="form-group"><label>Date souhaitée *</label><input id="fDate" type="date" /></div>
+          <div class="form-group full"><label>Note spéciale</label><textarea id="fNote" placeholder="Inscription sur le gâteau, allergies…"></textarea></div>
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:1rem;padding:1rem" onclick="goToPayment()">
+          Continuer → Paiement
+        </button>
+      </div>
+
+      <!-- ÉTAPE 2 : Prépaiement -->
+      <div id="modalStep2" style="display:none">
+        <button class="btn-back-modal" onclick="backToStep1()">← Retour</button>
+        <h2>💳 Mode de prépaiement</h2>
+        <p class="modal-sub">Choisissez comment régler votre commande</p>
+
+        <div class="recap-amount" id="recapAmount"></div>
+
+        <div class="payment-methods">
+          <label class="pay-option active">
+            <input type="radio" name="paymode" value="mobile_money" checked onchange="selectPayMode(this)" />
+            <div class="pay-icon">📱</div>
+            <div class="pay-info"><strong>Mobile Money</strong><span>Orange Money · Wave · MTN</span></div>
+            <div class="pay-check">✓</div>
+          </label>
+          <label class="pay-option">
+            <input type="radio" name="paymode" value="carte_bancaire" onchange="selectPayMode(this)" />
+            <div class="pay-icon">💳</div>
+            <div class="pay-info"><strong>Carte bancaire</strong><span>Visa · Mastercard</span></div>
+            <div class="pay-check">✓</div>
+          </label>
+          <label class="pay-option">
+            <input type="radio" name="paymode" value="especes" onchange="selectPayMode(this)" />
+            <div class="pay-icon">💵</div>
+            <div class="pay-info"><strong>Paiement à la livraison</strong><span>Espèces</span></div>
+            <div class="pay-check">✓</div>
+          </label>
+        </div>
+
+        <div class="pay-fields" id="fieldsMobileMoney">
+          <div class="form-group"><label>Opérateur</label>
+            <select id="operateur">
+              <option>Orange Money</option><option>Wave CI</option>
+              <option>MTN Mobile Money</option><option>Moov Money</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Numéro Mobile Money</label>
+            <input id="telMobile" type="tel" placeholder="+225 07 XX XX XX" /></div>
+          <div class="pay-instruction"><span>ℹ️</span> Vous recevrez une notification de confirmation sur ce numéro.</div>
+        </div>
+
+        <div class="pay-fields" id="fieldsCard" style="display:none">
+          <div class="form-group full"><label>Numéro de carte</label>
+            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="this.value=this.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim()" /></div>
+          <div class="form-group"><label>Expiration</label><input type="text" placeholder="MM/AA" maxlength="5" /></div>
+          <div class="form-group"><label>CVV</label><input type="text" placeholder="123" maxlength="3" /></div>
+        </div>
+
+        <div class="pay-fields" id="fieldsEspeces" style="display:none">
+          <div class="pay-instruction" style="background:rgba(143,168,136,0.12);border-color:var(--sage)">
+            <span>✅</span> Le paiement s'effectue à la réception. Préparez le montant exact.
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;margin-top:1.5rem;padding:1rem;font-size:1rem" onclick="confirmOrder()">
+          ✦ Confirmer et prépayer
+        </button>
+      </div>
+
+      <!-- ÉTAPE 3 : Succès -->
+      <div id="modalStep3" style="display:none">
+        <div class="confirm-success">
+          <div class="confirm-check">✓</div>
+          <h2>Commande confirmée !</h2>
+          <p id="confirmMsg"></p>
+          <div class="confirm-ref" id="confirmRef"></div>
+          <a href="livraison.html" class="btn-primary" style="margin-top:1.25rem;display:inline-flex">🛵 Organiser ma livraison</a>
+          <button class="btn-outline" style="margin-top:0.75rem" onclick="closeModalDirect()">Fermer</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+       </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Accueil</a></li><li><a href="commande.html">Commander</a></li>
+        <li><a href="personnaliser.html">Personnaliser</a></li>
+        <li><a href="livraison.html">Livraison</a></li>
+        <li><a href="service-client.html">Service client</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#">📞 +225 01 01 25 06 37</a></li>
+        <li><a href="#">✉️ Adouja33@gmail.com</a></li>
+        <li><a href="#">📍 Abidjan, Cocody</a></li>
+        <li><a href="#">⏰ Lun–Sam 7h–20h</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">© 2025 Maison Dorée — Tous droits réservés.</div>
+  </footer>
+  <div class="toast" id="toast"></div>
+
+  <script>
+  /* ── TAILLES : petite = grande × (2/3) ───────── */
+  function getPrix(card, size) {
+    const g = parseFloat(card.dataset.grande);
+    const m = parseFloat(card.dataset.moyenne);
+    const p = Math.round(g * 2 / 3 * 100) / 100;
+    return size === 'grande' ? g : size === 'moyenne' ? m : p;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const g = parseFloat(card.dataset.grande);
+      const m = parseFloat(card.dataset.moyenne);
+      const p = Math.round(g * 2 / 3 * 100) / 100;
+      const prices = { petite: p, moyenne: m, grande: g };
+      card.querySelectorAll('.size-btn').forEach(btn =>
+        btn.querySelector('.size-price').textContent = prices[btn.dataset.size] + 'Frcfa');
+      refreshPrice(card);
+    });
+  });
+
+  function selectSize(btn) {
+    const card = btn.closest('.product-card');
+    card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    refreshPrice(card);
+  }
+  function refreshPrice(card) {
+    const active = card.querySelector('.size-btn.active');
+    card.querySelector('.product-price').textContent =
+      getPrix(card, active ? active.dataset.size : 'petite') + 'Frcfa';
+  }
+
+  /* ── PANIER ─ */
+  const cart = [];
+  function addToCartFromCard(btn) {
+    const card  = btn.closest('.product-card');
+    const name  = card.querySelector('h3').textContent;
+    const icon  = card.querySelector('.product-img').textContent;
+    const size  = (card.querySelector('.size-btn.active') || { dataset:{size:'petite'} }).dataset.size;
+    const price = getPrix(card, size);
+    const labels = { petite:'Petite', moyenne:'Moyenne', grande:'Grande' };
+    const key   = name + '_' + size;
+    const found = cart.find(i => i.key === key);
+    if (found) found.qty++;
+    else cart.push({ key, name, icon, size, label: labels[size], price, qty: 1 });
+    renderCart();
+    showToast(`${icon} ${name} (${labels[size]}) ajouté !`);
+  }
+
+  function renderCart() {
+    const el = document.getElementById('cartItems');
+    const footer = document.getElementById('cartFooter');
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('cartCount').textContent = cart.reduce((s,i) => s+i.qty, 0);
+    if (!cart.length) {
+      el.innerHTML = '<div class="cart-empty">Votre panier est vide</div>';
+      footer.style.display = 'none'; return;
+    }
+    el.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <span class="cart-item-icon">${item.icon}</span>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-size">${item.label} · ${item.price}€</div>
+          <div class="cart-item-price">${(item.price * item.qty).toFixed(2)}frcfa</div>
+        </div>
+        <div class="cart-item-qty">
+          <button onclick="changeQty(${idx},-1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${idx},1)">+</button>
+        </div>
+      </div>`).join('');
+    document.getElementById('cartTotal').textContent = total.toFixed(2) + '€';
+    footer.style.display = 'block';
+  }
+  function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    renderCart();
+  }
+
+  /* ── MODAL ────── */
+  function setStep(n) {
+    [1,2,3].forEach(i => {
+      document.getElementById('modalStep'+i).style.display = i===n ? 'block' : 'none';
+      document.getElementById('ms'+i).classList.toggle('active', i <= n);
+    });
+  }
+
+  function checkout() {
+    if (!cart.length) return;
+    setStep(1);
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function goToPayment() {
+    if (!document.getElementById('fPrenom').value || !document.getElementById('fNom').value ||
+        !document.getElementById('fAdresse').value || !document.getElementById('fTel').value) {
+      showToast('⚠️ Veuillez remplir tous les champs obligatoires.'); return;
+    }
+    const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+    document.getElementById('recapAmount').innerHTML =
+      `<div class="recap-row"><span>Sous-total</span><strong>${total.toFixed(2)}€</strong></div>
+       <div class="recap-row"><span>Livraison</span><strong>À définir</strong></div>
+       <div class="recap-row recap-total"><span>Total à prépayer</span><strong>${total.toFixed(2)}€</strong></div>`;
+    setStep(2);
+  }
+  function backToStep1() { setStep(1); }
+
+  function selectPayMode(radio) {
+    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+    radio.closest('.pay-option').classList.add('active');
+    ['fieldsMobileMoney','fieldsCard','fieldsEspeces'].forEach(id =>
+      document.getElementById(id).style.display = 'none');
+    const map = { mobile_money:'fieldsMobileMoney', carte_bancaire:'fieldsCard', especes:'fieldsEspeces' };
+    document.getElementById(map[radio.value]).style.display = 'block';
+  }
+
+  function confirmOrder() {
+    const mode  = document.querySelector('input[name=paymode]:checked').value;
+    const total = cart.reduce((s,i) => s + i.price * i.qty, 0).toFixed(2);
+    const ref   = 'MD-' + Date.now().toString(36).toUpperCase();
+    const labels = { mobile_money:'Mobile Money', carte_bancaire:'Carte bancaire', especes:'Paiement à la livraison' };
+    document.getElementById('confirmMsg').textContent =
+      `Commande de ${total}€ enregistrée. Mode : ${labels[mode]}.`;
+    document.getElementById('confirmRef').textContent = '🔖 Référence : ' + ref;
+    setStep(3);
+    cart.length = 0; renderCart();
+  }
+
+  function closeModal(e) { if (e.target.id === 'modalOverlay') closeModalDirect(); }
+  function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+  /* ── FILTRES / DIVERS ────── */
+  function filterCakes(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card =>
+      card.style.display = (cat==='all' || card.dataset.cat===cat) ? '' : 'none');
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+  window.addEventListener('scroll', () =>
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 30));
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  </script>
+</body>
+</html>

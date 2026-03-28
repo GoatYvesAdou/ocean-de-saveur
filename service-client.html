@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Client — Maison Dorée</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="service-client.css" />
+  <link rel="stylesheet" href="images-vivantes.css" />
+  <script src="images-vivantes.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-name">Maison Dorée</span>
+      <span class="nav-logo-tagline">Pâtisserie d'exception</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="service-client.html" class="active">Service Client</a></li>
+      <li><a href="commande.html">Passer une commande</a></li>
+      <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
+    </ul>
+    <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="page-header">
+    <h1>💬 Service Client</h1>
+    <p>Une équipe à votre écoute pour une expérience parfaite</p>
+  </div>
+
+  <main class="sc-main">
+
+    <!-- Contact methods -->
+    <div class="contact-methods">
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Par téléphone</h3>
+        <p>Notre équipe est disponible pour répondre à toutes vos questions.</p>
+        <a href="tel:+2250101250637" class="contact-link">+225 01 01 25 06 37</a>
+        <div class="contact-hours">Lun–Sam · 7h00 – 20h00</div>
+      </div>
+      <div class="contact-card featured-contact">
+        <div class="contact-badge">Réponse rapide</div>
+        <div class="contact-icon">💬</div>
+        <h3>Chat en direct</h3>
+        <p>Discutez en temps réel avec l'un de nos conseillers pâtissiers experts.</p>
+        <button class="btn-primary" onclick="openChat()">Démarrer le chat</button>
+        <div class="contact-hours">Disponible maintenant ✓</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Par email</h3>
+        <p>Envoyez-nous votre demande et nous vous répondrons sous 2h.</p>
+        <a href="mailto:Adouja33@gmail.com" class="contact-link">Adouja33@gmail.com</a>
+        <div class="contact-hours">Réponse sous 2 heures</div>
+      </div>
+    </div>
+
+    <!-- Main content: form + FAQ -->
+    <div class="sc-grid">
+
+      <!-- Contact Form -->
+      <div class="sc-form-section">
+        <h2>Envoyez-nous un message</h2>
+        <p>Remplissez le formulaire ci-dessous et notre équipe vous contacte rapidement.</p>
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <div class="cf-row">
+            <div class="cf-group">
+              <label>Prénom *</label>
+              <input type="text" required placeholder="Marie" />
+            </div>
+            <div class="cf-group">
+              <label>Nom *</label>
+              <input type="text" required placeholder="Dupont" />
+            </div>
+          </div>
+          <div class="cf-group">
+            <label>Email *</label>
+            <input type="email" required placeholder="marie@exemple.com" />
+          </div>
+          <div class="cf-group">
+            <label>Téléphone</label>
+            <input type="tel" placeholder="+225 07 XX XX XX" />
+          </div>
+          <div class="cf-group">
+            <label>Sujet *</label>
+            <select required>
+              <option value="">Choisissez un sujet</option>
+              <option>Question sur une commande</option>
+              <option>Personnalisation de gâteau</option>
+              <option>Livraison & délais</option>
+              <option>Allergènes & régimes spéciaux</option>
+              <option>Réclamation</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="cf-group">
+            <label>Message *</label>
+            <textarea required placeholder="Décrivez votre demande en détail..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;padding:1rem;font-size:0.95rem">
+            <span>✦</span> Envoyer le message
+          </button>
+        </form>
+      </div>
+
+      <!-- FAQ -->
+      <div class="sc-faq-section">
+        <h2>Questions fréquentes</h2>
+        <p>Trouvez rapidement une réponse à vos questions.</p>
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Quels sont vos délais de livraison ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Nous livrons en 24h à 48h après validation de la commande. Pour les commandes personnalisées, prévoir 3 à 5 jours ouvrables. La livraison express (même jour) est disponible avant 10h pour les commandes passées avant 8h.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Proposez-vous des options sans allergènes ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Oui ! Nous proposons des options sans gluten, sans lactose, végétariennes et véganes. Indiquez vos allergies lors de la commande ou contactez-nous directement pour un devis personnalisé. Tous nos gâteaux sont fabriqués dans un atelier qui manipule également des allergènes courants.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Puis-je modifier ma commande après validation ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Les modifications sont possibles jusqu'à 48h avant la date de livraison. Au-delà, nous ferons notre maximum mais certaines modifications de personnalisation avancée peuvent ne pas être réalisables. Contactez-nous dès que possible par téléphone.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Comment sont conservés vos gâteaux ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Nos gâteaux se conservent au réfrigérateur entre 2°C et 6°C. La durée de conservation varie selon les créations : 2 à 3 jours pour les entremets avec fruits frais, 4 à 5 jours pour les gâteaux au chocolat. Nous vous fournirons les instructions spécifiques à votre commande.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Quel est votre rayon de livraison ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Nous livrons dans toute la commune d'Abidjan (Cocody, Plateau, Marcory, Treichville, Yopougon, etc.) ainsi que dans les villes de Bingerville et Anyama. Pour des événements spéciaux hors zone, contactez-nous pour un devis de livraison spéciale.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Proposez-vous des devis pour mariage ?</span>
+              <span class="faq-arrow">↓</span>
+            </button>
+            <div class="faq-a">
+              Absolument ! Nous avons une offre dédiée aux mariages, anniversaires et événements d'entreprise. Contactez-nous au moins 3 semaines à l'avance pour une consultation gratuite. Nous réalisons des pièces montées sur mesure pour des groupes à partir de 20 personnes.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Info cards -->
+        <div class="info-cards">
+          <div class="info-card">
+            <span class="info-icon">📍</span>
+            <div>
+              <strong>Notre boutique</strong>
+              <p>23 Avenue de la République, Cocody<br/>Abidjan, Côte d'Ivoire</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="info-icon">⏰</span>
+            <div>
+              <strong>Horaires</strong>
+              <p>Lun–Ven : 7h – 20h<br/>Sam : 8h – 19h · Dim : fermé</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Live Chat Modal -->
+  <div class="chat-overlay" id="chatOverlay">
+    <div class="chat-box">
+      <div class="chat-header">
+        <div class="chat-avatar">MD</div>
+        <div>
+          <div class="chat-agent-name">Conseiller Maison Dorée</div>
+          <div class="chat-status"><span class="status-dot"></span> En ligne</div>
+        </div>
+        <button class="chat-close" onclick="closeChat()">✕</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg bot">
+          <div class="msg-bubble">Bonjour ! Je suis votre conseiller Maison Dorée. Comment puis-je vous aider aujourd'hui ? 🎂</div>
+          <div class="msg-time">Maintenant</div>
+        </div>
+      </div>
+      <div class="chat-quick-replies" id="quickReplies">
+        <button onclick="quickReply('Ma commande')">Ma commande</button>
+        <button onclick="quickReply('Personnalisation')">Personnalisation</button>
+        <button onclick="quickReply('Livraison')">Livraison</button>
+        <button onclick="quickReply('Allergies')">Allergies</button>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="Écrivez votre message..." onkeydown="if(event.key==='Enter') sendChat()" />
+        <button onclick="sendChat()">→</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Maison Dorée</div>
+        <p class="footer-brand-desc">Pâtisserie d'exception depuis 1987.<br/>Chaque gâteau est une déclaration d'amour.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="commande.html">Commander</a></li>
+          <li><a href="personnaliser.html">Personnaliser</a></li>
+          <li><a href="service-client.html">Service client</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📞 +225 01 01 25 06 37</a></li>
+          <li><a href="#">✉️ Adouja33@gmail.com</a></li>
+          <li><a href="#">📍 Abidjan, Cocody</a></li>
+          <li><a href="#">⏰ Lun–Sam 7h–20h</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Maison Dorée — Tous droits réservés.</div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // FAQ
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Form
+    function submitForm(e) {
+      e.preventDefault();
+      showToast('✅ Message envoyé ! Nous vous répondons sous 2h.');
+      e.target.reset();
+    }
+
+    // Chat
+    const chatReplies = {
+      'Ma commande': 'Pour suivre votre commande, pouvez-vous me communiquer votre numéro de commande ? Il se trouve dans votre email de confirmation.',
+      'Personnalisation': 'Nous pouvons personnaliser absolument tout : saveurs, tailles, décorations, inscriptions. Avez-vous une idée précise en tête ?',
+      'Livraison': 'Nous livrons à Abidjan et alentours en 24-48h. Pour une livraison express le jour même, passez commande avant 8h.',
+      'Allergies': 'Nous proposons des options sans gluten, sans lactose et véganes. Quelles sont vos contraintes alimentaires ?',
+    };
+
+    function openChat() {
+      document.getElementById('chatOverlay').classList.add('open');
+    }
+    function closeChat() {
+      document.getElementById('chatOverlay').classList.remove('open');
+    }
+
+    function quickReply(text) {
+      document.getElementById('chatInput').value = text;
+      sendChat();
+    }
+
+    function sendChat() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      addMessage(msg, 'user');
+      input.value = '';
+      document.getElementById('quickReplies').style.display = 'none';
+      setTimeout(() => {
+        const reply = chatReplies[msg] || 'Merci pour votre message ! Un conseiller va vous répondre dans quelques instants. Y a-t-il autre chose que je peux faire pour vous ?';
+        addMessage(reply, 'bot');
+      }, 900);
+    }
+
+    function addMessage(text, type) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = `chat-msg ${type}`;
+      div.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">Maintenant</div>`;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', scrollY > 30));
+    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  </script>
+</body>
+</html>

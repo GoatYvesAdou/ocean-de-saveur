@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Dorée — Pâtisserie d'Exception</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="images-vivantes.css" />
+  <script src="images-vivantes.js" defer></script>
+</head>
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-name">Maison Dorée</span>
+      <span class="nav-logo-tagline">Pâtisserie d'exception</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="service-client.html">Service Client</a></li>
+      <li><a href="commande.html">Passer une commande</a></li>
+      <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-circle hero-circle-1"></div>
+      <div class="hero-circle hero-circle-2"></div>
+      <div class="hero-circle hero-circle-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>✦</span> Artisanat ivoirien depuis 2020 <span>✦</span>
+      </div>
+      <h1 class="hero-title">
+        L'art de la<br/>
+        <em>pâtisserie</em><br/>
+        réinventé
+      </h1>
+      <p class="hero-subtitle">
+        Des gâteaux créés avec passion, des ingrédients d'exception,<br/>
+        une expérience gustative qui reste gravée dans les mémoires.
+      </p>
+      <div class="hero-actions">
+        <a href="personnaliser.html" class="btn-primary">
+          <span>✦</span> Créer mon gâteau
+        </a>
+        <a href="commande.html" class="btn-outline">Voir nos créations</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-number">2 400+</span>
+          <span class="stat-label">Gâteaux créés</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number">10</span>
+          <span class="stat-label">Recettes signature</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number">6 ans</span>
+          <span class="stat-label">De savoir-faire</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="cake-showcase">
+        <div class="cake-ring cake-ring-outer"></div>
+        <div class="cake-ring cake-ring-mid"></div>
+        <div class="cake-emoji-wrap">
+          <div class="cake-emoji">🎂</div>
+        </div>
+        <div class="floating-tag tag-1">Framboise &amp; Rose</div>
+        <div class="floating-tag tag-2">Sans gluten ✓</div>
+        <div class="floating-tag tag-3">Livraison offerte</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── bienvenu───── -->
+  <section class="welcome-section">
+    <div class="welcome-inner">
+      <div class="welcome-deco">✦</div>
+      <h2 style="color: burlywood;">Bienvenue dans notre Maison</h2>
+      <p style="color:whitesmoke">
+        Chez <strong>Maison Dorée</strong>, chaque gâteau est une œuvre d'art comestible. 
+        Nos pâtissiers perpétuent des recettes transmises de génération en génération, 
+        tout en osant de nouvelles créations audacieuses. Que ce soit pour un anniversaire, 
+        un mariage, ou simplement pour vous faire plaisir — nous façonnons votre bonheur.
+      </p>
+      <div class="welcome-deco">✦</div>
+    </div>
+  </section>
+
+  <!-- ── SIGNATURE CAKES ─────────────────────── -->
+  <section class="signature-section">
+    <div class="section-header">
+      <span class="section-eyebrow">Nos créations</span>
+      <h2>Gâteaux Signature</h2>
+      <p>Une sélection de nos meilleures créations, plébiscitées par nos clients</p>
+    </div>
+
+    <div class="cakes-grid">
+      <div class="cake-card" data-delay="0">
+        <div class="cake-card-icon">🍓</div>
+        <div class="cake-card-body">
+          <h3>Fraisier Royal</h3>
+          <p>Génoise moelleuse, crème mousseline vanille, fraises fraîches du marché</p>
+          <div class="cake-card-footer">
+            <span class="cake-price">À partir de 3800 FCFA</span>
+            <a href="commande.html" class="btn-primary" style="padding:0.55rem 1.2rem;font-size:0.78rem">Commander</a>
+          </div>
+        </div>
+      </div>
+      <div class="cake-card featured" data-delay="100">
+        <div class="cake-featured-badge">★ Bestseller</div>
+        <div class="cake-card-icon">🍫</div>
+        <div class="cake-card-body">
+          <h3>Opéra Élite</h3>
+          <p>Biscuit joconde, ganache intense, crème au beurre moka, or comestible</p>
+          <div class="cake-card-footer">
+            <span class="cake-price">À partir de 5200 FCFA</span>
+            <a href="commande.html" class="btn-primary" style="padding:0.55rem 1.2rem;font-size:0.78rem">Commander</a>
+          </div>
+        </div>
+      </div>
+      <div class="cake-card" data-delay="200">
+        <div class="cake-card-icon">🌸</div>
+        <div class="cake-card-body">
+          <h3>Ispahan Rose</h3>
+          <p>Macaron géant, crème légère à la rose, framboises et litchis parfumés</p>
+          <div class="cake-card-footer">
+            <span class="cake-price">À partir de 4500 FCFA</span>
+            <a href="commande.html" class="btn-primary" style="padding:0.55rem 1.2rem;font-size:0.78rem">Commander</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="commande.html" class="btn-outline">Découvrir toute la carte →</a>
+    </div>
+  </section>
+
+  <!-- ── WHY US ───────────────────────────────── -->
+  <section class="why-section">
+    <div class="why-inner">
+      <div class="why-text">
+        <span class="section-eyebrow">Pourquoi nous choisir</span>
+        <h2>L'excellence à chaque bouchée</h2>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-icon">🥚</div>
+            <div>
+              <h4>Ingrédients premium</h4>
+              <p>Oeufs fermiers, beurre AOP, chocolat de couverture, fruits de saison — jamais de compromis.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🎨</div>
+            <div>
+              <h4>100% personnalisable</h4>
+              <p>Choisissez votre base, vos saveurs, vos toppings. Votre gâteau, votre vision.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🚚</div>
+            <div>
+              <h4>Livraison réfrigérée</h4>
+              <p>Emballage isotherme, livraison express. Votre création arrive parfaite, intacte.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🌿</div>
+            <div>
+              <h4>Options inclusives</h4>
+              <p>Sans gluten, végan, sans lactose — des alternatives pour toutes les sensibilités.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <div class="why-card-stack">
+          <div class="wcard wcard-back">
+            <span>🍰</span>
+            <span>Saint-Honoré</span>
+          </div>
+          <div class="wcard wcard-mid">
+            <span>🎂</span>
+            <span>Layer Cake</span>
+          </div>
+          <div class="wcard wcard-front">
+            <span>🥧</span>
+            <span>Tarte Tatin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ────────────────────────── -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <span class="section-eyebrow">Ils nous font confiance</span>
+      <h2>Avis de nos clients</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Le gâteau d'anniversaire que j'ai commandé était absolument sublime. Toute ma famille était émerveillée. Je recommande les yeux fermés ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><strong>Amélie R.</strong><br/><small>Abidjan, Cocody</small></div>
+        </div>
+      </div>
+      <div class="testi-card featured-testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« J'ai personnalisé un Opéra pour le mariage de ma sœur — les détails étaient incroyables. Le service client m'a accompagné tout au long. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--gold)">M</div>
+          <div><strong>Moussa K.</strong><br/><small>Abidjan, Plateau</small></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Option sans gluten parfaite, et le goût n'a rien à envier aux versions classiques. Enfin une pâtisserie qui pense à tout le monde ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--sage)">F</div>
+          <div><strong>Fatou D.</strong><br/><small>Abidjan, Marcory</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ──────────────────────────── -->
+  <section class="cta-banner">
+    <div class="cta-inner">
+      <h2>Prêt à créer votre gâteau de rêve ?</h2>
+      <p>Choisissez parmi 10 bases, personnalisez chaque ingrédient, et laissez-nous faire le reste.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="personnaliser.html" class="btn-primary"><span>✦</span> Personnaliser mon gâteau</a>
+        <a href="service-client.html" class="btn-outline" style="border-color:var(--cream);color:var(--cream)">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Maison Dorée</div>
+        <p class="footer-brand-desc">Pâtisserie d'exception depuis 2026.<br/>Chaque gâteau est une déclaration d'amour.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="commande.html">Commander</a></li>
+          <li><a href="personnaliser.html">Personnaliser</a></li>
+          <li><a href="service-client.html">Service client</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📞 +225 01 01 25 06 37</a></li>
+          <li><a href="#">✉️ Adouja33@gmail.com</a></li>
+          <li><a href="#">📍 Abidjan, Cocody</a></li>
+          <li><a href="#">⏰ Lun–Sam 7h–20h</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Maison Dorée — Tous droits réservés.</div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Animate on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.cake-card, .why-item, .testi-card').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

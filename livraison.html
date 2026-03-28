@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livraison — Maison Dorée</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="livraison.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-name">Maison Dorée</span>
+      <span class="nav-logo-tagline">Pâtisserie d'exception</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="service-client.html">Service Client</a></li>
+      <li><a href="commande.html">Passer une commande</a></li>
+      <li><a href="classement.html">🏆 Classement</a></li>
+      <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
+    </ul>
+    <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="page-header">
+    <h1>🛵 Service de Livraison</h1>
+    <p>Rapide, sécurisé et réfrigéré — votre gâteau livré dans les meilleures conditions</p>
+  </div>
+
+  <main class="liv-main">
+
+    <!-- ── COMPARATIF VISUEL MOTO vs VOITURE ─────────────── -->
+    <section class="liv-compare-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Choisissez votre mode</span>
+        <h2>Moto ou Véhicule ?</h2>
+        <p>Deux options adaptées à vos besoins — prix et délais clairement affichés</p>
+      </div>
+
+      <div class="compare-cards">
+
+        <!-- MOTO -->
+        <div class="compare-card moto-card" id="motoCard" onclick="selectMode('moto')">
+          <div class="compare-badge recommended">⚡ Recommandé</div>
+          <div class="compare-icon">🛵</div>
+          <h3>Livraison à Moto</h3>
+          <p>Rapide, agile, idéale pour les petites et moyennes commandes</p>
+          <div class="compare-stats">
+            <div class="cstat">
+              <span class="cstat-value" id="motoDelai">—</span>
+              <span class="cstat-label">Délai estimé</span>
+            </div>
+            <div class="cstat">
+              <span class="cstat-value" id="motoPrix">—</span>
+              <span class="cstat-label">Coût livraison</span>
+            </div>
+          </div>
+          <ul class="compare-avantages">
+            <li>✓ 30% plus rapide qu'un véhicule</li>
+            <li>✓ Tarif de référence (le moins cher)</li>
+            <li>✓ Livreur dédié et traçable</li>
+            <li>✓ Idéal pour 1–2 gâteaux</li>
+          </ul>
+          <div class="compare-select-indicator">
+            <div class="select-radio" id="motoRadio"></div>
+            <span>Choisir la moto</span>
+          </div>
+        </div>
+
+        <!-- SÉPARATEUR -->
+        <div class="compare-vs">
+          <div class="vs-line"></div>
+          <div class="vs-badge">VS</div>
+          <div class="vs-line"></div>
+          <!-- Économies affichées dynamiquement -->
+          <div class="vs-info" id="vsInfo"></div>
+        </div>
+
+        <!-- VÉHICULE -->
+        <div class="compare-card vehicule-card" id="vehiculeCard" onclick="selectMode('vehicule')">
+          <div class="compare-icon">🚗</div>
+          <h3>Livraison en Véhicule</h3>
+          <p>Spacieux, adapté aux grandes commandes et pièces montées fragiles</p>
+          <div class="compare-stats">
+            <div class="cstat">
+              <span class="cstat-value" id="vehiculeDelai">—</span>
+              <span class="cstat-label">Délai estimé</span>
+            </div>
+            <div class="cstat">
+              <span class="cstat-value" id="vehiculePrix">—</span>
+              <span class="cstat-label">Coût livraison</span>
+            </div>
+          </div>
+          <ul class="compare-avantages">
+            <li>✓ Transport sécurisé des grandes pièces</li>
+            <li>✓ Réfrigération intégrée</li>
+            <li>✓ Idéal pour 3+ gâteaux ou pièces montées</li>
+            <li>○ +20% sur le tarif moto</li>
+          </ul>
+          <div class="compare-select-indicator">
+            <div class="select-radio" id="vehiculeRadio"></div>
+            <span>Choisir le véhicule</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SÉLECTION ZONE + RÉSUMÉ ───────────────────────── -->
+    <section class="liv-form-section">
+      <div class="liv-form-left">
+        <h2>Configurez votre livraison</h2>
+        <p>Sélectionnez votre zone et votre mode pour voir les tarifs en temps réel</p>
+
+        <div class="liv-form-group">
+          <label>Zone de livraison</label>
+          <select id="zoneSelect" onchange="updateTarifs()">
+            <option value="">— Sélectionnez votre zone —</option>
+            <option data-moto="1500" data-vehicule-min="20" value="cocody_centre">Cocody Centre</option>
+            <option data-moto="1800" data-vehicule-min="30" value="cocody_riviera">Cocody Riviera</option>
+            <option data-moto="2000" data-vehicule-min="25" value="plateau">Plateau</option>
+            <option data-moto="2200" data-vehicule-min="35" value="marcory">Marcory</option>
+            <option data-moto="2000" data-vehicule-min="30" value="treichville">Treichville</option>
+            <option data-moto="2800" data-vehicule-min="50" value="yopougon_marche">Yopougon Marché</option>
+            <option data-moto="3000" data-vehicule-min="55" value="yopougon_selmer">Yopougon Selmer</option>
+            <option data-moto="3200" data-vehicule-min="60" value="abobo">Abobo</option>
+            <option data-moto="2500" data-vehicule-min="45" value="bingerville">Bingerville</option>
+            <option data-moto="3500" data-vehicule-min="70" value="anyama">Anyama</option>
+          </select>
+        </div>
+
+        <!-- Sélection du mode (répétée ici en radio buttons) -->
+        <div class="liv-form-group">
+          <label>Mode de livraison sélectionné</label>
+          <div class="mode-toggle">
+            <button class="mode-toggle-btn active" id="btnMoto" onclick="selectMode('moto')">
+              🛵 Moto <span id="btnMotoPrix"></span>
+            </button>
+            <button class="mode-toggle-btn" id="btnVehicule" onclick="selectMode('vehicule')">
+              🚗 Véhicule <span id="btnVehiculePrix"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="liv-form-group">
+          <label>Adresse complète *</label>
+          <input type="text" id="livAdresse" placeholder="12 Rue des Manguiers, Cocody, Abidjan" />
+        </div>
+        <div class="liv-form-group">
+          <label>Nom du destinataire *</label>
+          <input type="text" id="livNom" placeholder="Marie Dupont" />
+        </div>
+        <div class="liv-form-group">
+          <label>Téléphone destinataire *</label>
+          <input type="tel" id="livTel" placeholder="+225 07 XX XX XX" />
+        </div>
+        <div class="liv-form-group">
+          <label>Note pour le livreur</label>
+          <textarea id="livNote" placeholder="Portail bleu, 2ème étage, code porte…"></textarea>
+        </div>
+
+        <button class="btn-primary" style="width:100%;padding:1rem;font-size:1rem;margin-top:0.5rem" onclick="confirmerLivraison()">
+          ✦ Confirmer la livraison
+        </button>
+      </div>
+
+      <!-- ── RÉSUMÉ DYNAMIQUE ─────────────────────────── -->
+      <div class="liv-summary" id="livSummary">
+        <div class="summary-header-liv">
+          <div class="summary-icon-liv" id="summaryIcon">🛵</div>
+          <div>
+            <h3 id="summaryMode">Moto</h3>
+            <p id="summaryZone">Sélectionnez une zone</p>
+          </div>
+        </div>
+
+        <div class="summary-rows" id="summaryRows">
+          <div class="summary-row-placeholder">
+            Sélectionnez une zone pour voir les tarifs
+          </div>
+        </div>
+
+        <!-- Infos règles métier -->
+        <div class="rules-box">
+          <div class="rule-item">
+            <span class="rule-icon moto-color">🛵</span>
+            <div>
+              <strong>Moto = prix de référence</strong>
+              <p>Délai réduit de 30% par rapport au véhicule</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon vehicule-color">🚗</span>
+            <div>
+              <strong>Véhicule = moto +20%</strong>
+              <p>Délai standard, idéal pour commandes volumineuses</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ZONES DISPONIBLES (tableau récapitulatif) ─────── -->
+    <section class="zones-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Zones desservies</span>
+        <h2>Tarifs par zone</h2>
+        <p>Cliquez sur une zone pour la sélectionner directement</p>
+      </div>
+      <div class="zones-grid" id="zonesGrid"></div>
+    </section>
+
+    <!-- ── COMMENT ÇA MARCHE ─────────────────────────────── -->
+    <section class="how-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Le processus</span>
+        <h2>Comment ça marche ?</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-icon">🛒</div>
+          <h4>Commandez</h4>
+          <p>Choisissez vos gâteaux sur la page commande et prépayez en ligne</p>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-icon">🎂</div>
+          <h4>On prépare</h4>
+          <p>Nos pâtissiers préparent votre commande avec soin</p>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-icon">🛵</div>
+          <h4>On livre</h4>
+          <p>Votre livreur part avec votre gâteau dans un emballage réfrigéré</p>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-num">4</div>
+          <div class="how-icon">🎉</div>
+          <h4>Vous régalez</h4>
+          <p>Profitez de votre gâteau frais livré à votre porte</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ MODAL LIVRAISON — 2 étapes : confirmation + notation ══ -->
+  <div class="modal-overlay" id="livModal" onclick="closeLivModal(event)">
+    <div class="modal-box" style="max-width:520px">
+      <button class="modal-close" onclick="closeLivModalDirect()">✕</button>
+
+      <!-- Étape 1 : Confirmation -->
+      <div id="livStep1" style="text-align:center">
+        <div class="confirm-check" style="margin:0 auto 1.25rem">✓</div>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--chocolate);margin-bottom:0.75rem">Livraison confirmée !</h2>
+        <p id="livConfirmMsg" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text-mid);margin-bottom:1rem"></p>
+        <div id="livConfirmRef" class="confirm-ref" style="margin-bottom:1.75rem"></div>
+
+        <!-- Sélection du livreur assigné -->
+        <div class="notation-livreur-select">
+          <p style="font-size:0.88rem;color:var(--text-light);margin-bottom:0.75rem">
+            Votre livreur a été assigné :
+          </p>
+          <div class="livreur-assigned" id="livreurAssigned"></div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;margin-top:1.5rem" onclick="goToNotation()">
+          ⭐ Noter cette livraison
+        </button>
+        <a href="commande.html" class="btn-outline" style="width:100%;display:block;text-align:center;margin-top:0.75rem;padding:0.75rem">
+          Plus tard
+        </a>
+      </div>
+
+      <!-- Étape 2 : Formulaire de notation -->
+      <div id="livStep2" style="display:none">
+        <h2 style="font-family:'Playfair Display',serif;color:var(--chocolate);margin-bottom:0.35rem">
+          ⭐ Notez votre livraison
+        </h2>
+        <p class="modal-sub" style="margin-bottom:1.5rem">Votre avis aide à récompenser les meilleurs livreurs</p>
+
+        <!-- Livreur -->
+        <div class="notation-livreur-mini" id="notationLivreurMini"></div>
+
+        <!-- Note globale étoiles -->
+        <div class="notation-bloc">
+          <label class="notation-label">Note globale *</label>
+          <div class="stars-input" id="starsGlobal" data-val="0">
+            <span onclick="setStars('starsGlobal',1)">★</span>
+            <span onclick="setStars('starsGlobal',2)">★</span>
+            <span onclick="setStars('starsGlobal',3)">★</span>
+            <span onclick="setStars('starsGlobal',4)">★</span>
+            <span onclick="setStars('starsGlobal',5)">★</span>
+          </div>
+          <div class="stars-label" id="labelGlobal">Cliquez pour noter</div>
+        </div>
+
+        <!-- Critères détaillés -->
+        <div class="notation-criteres">
+          <div class="critere-row">
+            <span class="critere-label">⏱️ Ponctualité</span>
+            <div class="stars-input stars-sm" id="starsPonctualite" data-val="0">
+              <span onclick="setStars('starsPonctualite',1)">★</span>
+              <span onclick="setStars('starsPonctualite',2)">★</span>
+              <span onclick="setStars('starsPonctualite',3)">★</span>
+              <span onclick="setStars('starsPonctualite',4)">★</span>
+              <span onclick="setStars('starsPonctualite',5)">★</span>
+            </div>
+          </div>
+          <div class="critere-row">
+            <span class="critere-label">📦 État du colis</span>
+            <div class="stars-input stars-sm" id="starsEtat" data-val="0">
+              <span onclick="setStars('starsEtat',1)">★</span>
+              <span onclick="setStars('starsEtat',2)">★</span>
+              <span onclick="setStars('starsEtat',3)">★</span>
+              <span onclick="setStars('starsEtat',4)">★</span>
+              <span onclick="setStars('starsEtat',5)">★</span>
+            </div>
+          </div>
+          <div class="critere-row">
+            <span class="critere-label">😊 Amabilité</span>
+            <div class="stars-input stars-sm" id="starsAmabilite" data-val="0">
+              <span onclick="setStars('starsAmabilite',1)">★</span>
+              <span onclick="setStars('starsAmabilite',2)">★</span>
+              <span onclick="setStars('starsAmabilite',3)">★</span>
+              <span onclick="setStars('starsAmabilite',4)">★</span>
+              <span onclick="setStars('starsAmabilite',5)">★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commentaire libre -->
+        <div class="notation-bloc" style="margin-top:1rem">
+          <label class="notation-label">Commentaire</label>
+          <textarea id="notationComment" placeholder="Décrivez votre expérience de livraison…" style="width:100%;min-height:80px;padding:0.75rem;border:1.5px solid rgba(201,151,74,0.22);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--chocolate);background:var(--cream);outline:none;resize:vertical"></textarea>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+          <button class="btn-outline" style="flex:1" onclick="skipNotation()">Passer</button>
+          <button class="btn-primary" style="flex:2" onclick="soumettreNotation()">✦ Soumettre ma note</button>
+        </div>
+      </div>
+
+      <!-- Étape 3 : Merci -->
+      <div id="livStep3" style="display:none;text-align:center">
+        <div style="font-size:4rem;margin-bottom:1rem">🏆</div>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--chocolate);margin-bottom:0.75rem">Merci pour votre avis !</h2>
+        <p id="merciMsg" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text-mid);margin-bottom:1.5rem"></p>
+        <a href="classement.html" class="btn-primary" style="display:inline-flex;margin-bottom:0.75rem">
+          🏆 Voir le classement du mois
+        </a><br/>
+        <a href="commande.html" class="btn-outline" style="display:inline-flex">← Retour aux commandes</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-brand-name">Maison Dorée</div>
+        <p class="footer-brand-desc">Pâtisserie d'exception depuis 1987.<br/>Chaque gâteau est une déclaration d'amour.</p></div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="commande.html">Commander</a></li>
+        <li><a href="personnaliser.html">Personnaliser</a></li>
+        <li><a href="livraison.html">Livraison</a></li>
+        <li><a href="service-client.html">Service client</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#">📞 +225 07 00 00 00</a></li>
+        <li><a href="#">✉️ <span class="__cf_email__" data-cfemail="9af2fff6f6f5daf7fbf3e9f5f4fef5e8ffffb4f9f3">[email&#160;protected]</span></a></li>
+        <li><a href="#">📍 Abidjan, Cocody</a></li>
+        <li><a href="#">⏰ Lun–Sam 7h–20h</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">© 2025 Maison Dorée — Tous droits réservés.</div>
+  </footer>
+  <div class="toast" id="toast"></div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ══════════════════════════════════════════════
+     DONNÉES ZONES
+     prix_moto = référence
+     prix_vehicule = prix_moto × 1.20
+     delai_moto = delai_vehicule × 0.70  (30% plus rapide)
+  ══════════════════════════════════════════════ */
+  const ZONES = [
+    { id:'cocody_centre',   label:'Cocody Centre',     motoFCFA:1500, vehiculeMin:20 },
+    { id:'cocody_riviera',  label:'Cocody Riviera',    motoFCFA:1800, vehiculeMin:30 },
+    { id:'plateau',         label:'Plateau',           motoFCFA:2000, vehiculeMin:25 },
+    { id:'marcory',         label:'Marcory',           motoFCFA:2200, vehiculeMin:35 },
+    { id:'treichville',     label:'Treichville',       motoFCFA:2000, vehiculeMin:30 },
+    { id:'yopougon_marche', label:'Yopougon Marché',   motoFCFA:2800, vehiculeMin:50 },
+    { id:'yopougon_selmer', label:'Yopougon Selmer',   motoFCFA:3000, vehiculeMin:55 },
+    { id:'abobo',           label:'Abobo',             motoFCFA:3200, vehiculeMin:60 },
+    { id:'bingerville',     label:'Bingerville',       motoFCFA:2500, vehiculeMin:45 },
+    { id:'anyama',          label:'Anyama',            motoFCFA:3500, vehiculeMin:70 },
+  ];
+
+  function getZoneCalc(zone) {
+    const vehiculeFCFA = Math.round(zone.motoFCFA * 1.20);
+    const motoMin      = Math.round(zone.vehiculeMin * 0.70);
+    return { ...zone, vehiculeFCFA, motoMin };
+  }
+
+  let selectedMode = 'moto';
+  let selectedZoneId = null;
+
+  /* ── Sélection du mode ───────────────────────── */
+  function selectMode(mode) {
+    selectedMode = mode;
+    document.getElementById('motoCard').classList.toggle('active', mode === 'moto');
+    document.getElementById('vehiculeCard').classList.toggle('active', mode === 'vehicule');
+    document.getElementById('motoRadio').classList.toggle('checked', mode === 'moto');
+    document.getElementById('vehiculeRadio').classList.toggle('checked', mode === 'vehicule');
+    document.getElementById('btnMoto').classList.toggle('active', mode === 'moto');
+    document.getElementById('btnVehicule').classList.toggle('active', mode === 'vehicule');
+    document.getElementById('summaryIcon').textContent = mode === 'moto' ? '🛵' : '🚗';
+    document.getElementById('summaryMode').textContent = mode === 'moto' ? 'Moto' : 'Véhicule';
+    updateTarifs();
+  }
+
+  /* ── Mise à jour des tarifs ─────────────────── */
+  function updateTarifs() {
+    const sel = document.getElementById('zoneSelect');
+    const opt = sel.options[sel.selectedIndex];
+    if (!opt.value) { resetSummary(); return; }
+
+    selectedZoneId = opt.value;
+    const zone = ZONES.find(z => z.id === opt.value);
+    if (!zone) return;
+    const z = getZoneCalc(zone);
+
+    /* Mettre à jour les cartes comparatives */
+    document.getElementById('motoDelai').textContent  = z.motoMin + ' min';
+    document.getElementById('motoPrix').textContent   = z.motoFCFA.toLocaleString() + ' F';
+    document.getElementById('vehiculeDelai').textContent = z.vehiculeMin + ' min';
+    document.getElementById('vehiculePrix').textContent  = z.vehiculeFCFA.toLocaleString() + ' F';
+
+    /* VS info */
+    document.getElementById('vsInfo').innerHTML =
+      `<div class="vs-diff">Économisez<br><strong>${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F</strong><br>avec la moto</div>
+       <div class="vs-diff">Gagnez<br><strong>${z.vehiculeMin - z.motoMin} min</strong><br>avec la moto</div>`;
+
+    /* Boutons toggle */
+    document.getElementById('btnMotoPrix').textContent    = '· ' + z.motoFCFA.toLocaleString() + ' F';
+    document.getElementById('btnVehiculePrix').textContent = '· ' + z.vehiculeFCFA.toLocaleString() + ' F';
+
+    /* Résumé */
+    const prix  = selectedMode === 'moto' ? z.motoFCFA : z.vehiculeFCFA;
+    const delai = selectedMode === 'moto' ? z.motoMin  : z.vehiculeMin;
+    const gain  = z.vehiculeMin - z.motoMin;
+
+    document.getElementById('summaryZone').textContent = z.label;
+    document.getElementById('summaryRows').innerHTML = `
+      <div class="srow"><span>Zone</span><strong>${z.label}</strong></div>
+      <div class="srow"><span>Mode</span><strong>${selectedMode === 'moto' ? '🛵 Moto' : '🚗 Véhicule'}</strong></div>
+      <div class="srow"><span>Délai estimé</span><strong>${delai} minutes</strong></div>
+      <div class="srow"><span>Tarif livraison</span><strong>${prix.toLocaleString()} FCFA</strong></div>
+      ${selectedMode === 'moto'
+        ? `<div class="srow highlight-moto"><span>⚡ Gain de temps vs voiture</span><strong>−${gain} min</strong></div>`
+        : `<div class="srow highlight-veh"><span>🛡️ Surcoût vs moto</span><strong>+${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F (+20%)</strong></div>`
+      }
+    `;
+
+    /* Highlight zone dans le tableau */
+    document.querySelectorAll('.zone-card').forEach(c => c.classList.toggle('active', c.dataset.id === selectedZoneId));
+  }
+
+  function resetSummary() {
+    document.getElementById('summaryRows').innerHTML =
+      '<div class="summary-row-placeholder">Sélectionnez une zone pour voir les tarifs</div>';
+    document.getElementById('summaryZone').textContent = 'Sélectionnez une zone';
+    ['motoDelai','motoPrix','vehiculeDelai','vehiculePrix'].forEach(id =>
+      document.getElementById(id).textContent = '—');
+    document.getElementById('vsInfo').innerHTML = '';
+  }
+
+  /* ── Construire le tableau des zones ────────── */
+  function buildZonesGrid() {
+    const grid = document.getElementById('zonesGrid');
+    ZONES.forEach(zone => {
+      const z = getZoneCalc(zone);
+      const card = document.createElement('div');
+      card.className = 'zone-card';
+      card.dataset.id = z.id;
+      card.innerHTML = `
+        <div class="zone-name">${z.label}</div>
+        <div class="zone-row moto-row">
+          <span>🛵 Moto</span>
+          <span class="zone-time">${z.motoMin} min</span>
+          <span class="zone-price">${z.motoFCFA.toLocaleString()} F</span>
+        </div>
+        <div class="zone-row veh-row">
+          <span>🚗 Véhicule</span>
+          <span class="zone-time">${z.vehiculeMin} min</span>
+          <span class="zone-price">${z.vehiculeFCFA.toLocaleString()} F</span>
+        </div>
+        <div class="zone-economy">Moto : −${z.vehiculeMin - z.motoMin} min & −${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F</div>
+      `;
+      card.addEventListener('click', () => {
+        document.getElementById('zoneSelect').value = z.id;
+        updateTarifs();
+        document.querySelector('.liv-form-section').scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     LIVREURS — base de données simulée
+     En prod, ces données viendraient d'une API
+  ══════════════════════════════════════════════ */
+  const LIVREURS = [
+    { id:'liv1', nom:'Konan Assi',    avatar:'K', mode:'moto',     zone:'cocody_centre'   },
+    { id:'liv2', nom:'Traoré Bamba',  avatar:'T', mode:'moto',     zone:'cocody_riviera'  },
+    { id:'liv3', nom:'Koffi Yao',     avatar:'K', mode:'vehicule', zone:'plateau'         },
+    { id:'liv4', nom:'Diallo Seydou', avatar:'D', mode:'moto',     zone:'marcory'         },
+    { id:'liv5', nom:'Coulibaly Adja',avatar:'C', mode:'vehicule', zone:'treichville'     },
+    { id:'liv6', nom:'N\'Guessan Aya',avatar:'N', mode:'moto',     zone:'yopougon_marche' },
+    { id:'liv7', nom:'Bah Ibrahim',   avatar:'B', mode:'moto',     zone:'yopougon_selmer' },
+    { id:'liv8', nom:'Koné Daouda',   avatar:'K', mode:'vehicule', zone:'abobo'           },
+    { id:'liv9', nom:'Fofana Mariame',avatar:'F', mode:'moto',     zone:'bingerville'     },
+    { id:'liv10',nom:'Soro Lacina',   avatar:'S', mode:'vehicule', zone:'anyama'          },
+  ];
+
+  let currentLivreur = null;
+  let currentRef     = null;
+
+  /* ── Confirmation livraison ─────────────────── */
+  function confirmerLivraison() {
+    const adresse = document.getElementById('livAdresse').value;
+    const nom     = document.getElementById('livNom').value;
+    const tel     = document.getElementById('livTel').value;
+    if (!adresse || !nom || !tel) { showToast('⚠️ Remplissez les champs obligatoires.'); return; }
+    if (!selectedZoneId) { showToast('⚠️ Sélectionnez votre zone de livraison.'); return; }
+
+    const zone  = ZONES.find(z => z.id === selectedZoneId);
+    const z     = getZoneCalc(zone);
+    const prix  = selectedMode === 'moto' ? z.motoFCFA : z.vehiculeFCFA;
+    const delai = selectedMode === 'moto' ? z.motoMin  : z.vehiculeMin;
+    currentRef  = 'LIV-' + Date.now().toString(36).toUpperCase();
+    const modeLabel = selectedMode === 'moto' ? '🛵 Moto' : '🚗 Véhicule';
+
+    /* Assigner un livreur compatible avec la zone et le mode */
+    const compatibles = LIVREURS.filter(l =>
+      l.mode === selectedMode && l.zone === selectedZoneId
+    );
+    currentLivreur = compatibles.length
+      ? compatibles[Math.floor(Math.random() * compatibles.length)]
+      : LIVREURS.filter(l => l.mode === selectedMode)[0];
+
+    /* Remplir l'étape 1 */
+    document.getElementById('livConfirmMsg').textContent =
+      `Livraison ${modeLabel} vers ${z.label} — délai estimé : ${delai} min — coût : ${prix.toLocaleString()} FCFA.`;
+    document.getElementById('livConfirmRef').textContent = '🔖 Référence : ' + currentRef;
+    document.getElementById('livreurAssigned').innerHTML = `
+      <div class="livreur-card-mini">
+        <div class="livreur-avatar">${currentLivreur.avatar}</div>
+        <div>
+          <strong>${currentLivreur.nom}</strong>
+          <span>${currentLivreur.mode === 'moto' ? '🛵' : '🚗'} ${modeLabel}</span>
+        </div>
+      </div>`;
+
+    showLivStep(1);
+    document.getElementById('livModal').classList.add('open');
+  }
+
+  /* ── Navigation entre étapes du modal ───────── */
+  function showLivStep(n) {
+    [1,2,3].forEach(i =>
+      document.getElementById('livStep'+i).style.display = i===n ? 'block' : 'none'
+    );
+  }
+
+  function goToNotation() {
+    /* Remplir le résumé livreur dans l'étape 2 */
+    document.getElementById('notationLivreurMini').innerHTML = `
+      <div class="livreur-card-mini" style="margin-bottom:1.25rem">
+        <div class="livreur-avatar">${currentLivreur.avatar}</div>
+        <div>
+          <strong>${currentLivreur.nom}</strong>
+          <span>${currentLivreur.mode === 'moto' ? '🛵 Moto' : '🚗 Véhicule'} · Réf : ${currentRef}</span>
+        </div>
+      </div>`;
+    /* Reset étoiles */
+    ['starsGlobal','starsPonctualite','starsEtat','starsAmabilite'].forEach(id => setStars(id, 0));
+    document.getElementById('notationComment').value = '';
+    showLivStep(2);
+  }
+
+  function skipNotation() { closeLivModalDirect(); }
+
+  /* ── Système d'étoiles ──────────────────────── */
+  const starsLabels = ['','Très mauvais 😞','Mauvais 😕','Correct 😐','Bien 😊','Excellent 🤩'];
+
+  function setStars(containerId, val) {
+    const container = document.getElementById(containerId);
+    container.dataset.val = val;
+    Array.from(container.querySelectorAll('span')).forEach((s, i) => {
+      s.classList.toggle('active', i < val);
+    });
+    if (containerId === 'starsGlobal') {
+      document.getElementById('labelGlobal').textContent = starsLabels[val] || 'Cliquez pour noter';
+    }
+  }
+
+  /* ── Soumission de la notation ──────────────── */
+  function soumettreNotation() {
+    const global       = parseInt(document.getElementById('starsGlobal').dataset.val);
+    const ponctualite  = parseInt(document.getElementById('starsPonctualite').dataset.val);
+    const etat         = parseInt(document.getElementById('starsEtat').dataset.val);
+    const amabilite    = parseInt(document.getElementById('starsAmabilite').dataset.val);
+    const commentaire  = document.getElementById('notationComment').value.trim();
+
+    if (global === 0) { showToast('⚠️ Donnez au moins une note globale.'); return; }
+
+    /* Construire l'objet notation */
+    const notation = {
+      livreurId:   currentLivreur.id,
+      livreurNom:  currentLivreur.nom,
+      ref:         currentRef,
+      date:        new Date().toISOString(),
+      mois:        new Date().toISOString().slice(0,7), /* "2025-03" */
+      global, ponctualite, etat, amabilite, commentaire,
+      moyenne: parseFloat(((global + (ponctualite||global) + (etat||global) + (amabilite||global)) / 4).toFixed(2))
+    };
+
+    /* Sauvegarder dans localStorage */
+    sauvegarderNotation(notation);
+
+    /* Afficher étape 3 */
+    document.getElementById('merciMsg').textContent =
+      `Votre note de ${global}/5 pour ${currentLivreur.nom} a bien été enregistrée. Elle compte pour le classement du mois !`;
+    showLivStep(3);
+  }
+
+  /* ── localStorage — lecture/écriture ─────────── */
+  function sauvegarderNotation(notation) {
+    try {
+      const existantes = JSON.parse(localStorage.getItem('md_notations') || '[]');
+      existantes.push(notation);
+      localStorage.setItem('md_notations', JSON.stringify(existantes));
+    } catch(e) { console.error('localStorage indisponible', e); }
+  }
+
+  function closeLivModal(e) { if (e.target.id === 'livModal') closeLivModalDirect(); }
+  function closeLivModalDirect() { document.getElementById('livModal').classList.remove('open'); }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  window.addEventListener('scroll', () =>
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 30));
+  function toggleMenu() { document.get

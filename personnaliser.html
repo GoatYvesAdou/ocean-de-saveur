@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personnaliser votre Gâteau — Maison Dorée</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="personnaliser.css" />
+  <link rel="stylesheet" href="images-vivantes.css" />
+  <script src="images-vivantes.js" defer></script>
+</head>
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-name">Maison Dorée</span>
+      <span class="nav-logo-tagline">Pâtisserie d'exception</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="service-client.html">Service Client</a></li>
+      <li><a href="commande.html">Passer une commande</a></li>
+      <li><a href="personnaliser.html" class="active nav-cta">Personnaliser votre gâteau</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ── PAGE entete ─── -->
+  <div class="page-header">
+    <h1>✦ Personnalisez votre Gâteau</h1>
+    <p>Choisissez parmi 10 créations et ajustez chaque ingrédient à votre goût</p>
+  </div>
+
+  <!-- ── Menu principal ────── -->
+  <main class="perso-main">
+
+    <!-- Step indicator -->
+    <div class="steps-bar">
+      <div class="step active" id="step1-ind">
+        <div class="step-num">1</div>
+        <span>Choisir un gâteau</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step2-ind">
+        <div class="step-num">2</div>
+        <span>Personnaliser</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step3-ind">
+        <div class="step-num">3</div>
+        <span>Commander</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Cake selection -->
+    <div id="step1" class="step-content">
+      <h2 class="step-title">Sélectionnez votre gâteau</h2>
+      <p class="step-sub">Cliquez sur un gâteau pour commencer la personnalisation</p>
+
+      <!-- allons aec tout le P-html pour la vidéo en arrière plan , body en gros -->
+
+      <div class="cakes-selector">
+
+        <div class="cake-sel-card" onclick="selectCake(0)">
+          <div class="cake-sel-icon">🍓</div>
+          <div class="cake-sel-info">
+            <h3>Fraisier Royal</h3>
+            <p>Fraise · Vanille · Crème</p>
+            <span class="cake-sel-price">38000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(1)">
+          <div class="cake-sel-icon">🍫</div>
+          <div class="cake-sel-info">
+            <h3>Opéra Élite</h3>
+            <p>Café · Chocolat · Moka</p>
+            <span class="cake-sel-price">52000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(2)">
+          <div class="cake-sel-icon">🌸</div>
+          <div class="cake-sel-info">
+            <h3>Ispahan Rose</h3>
+            <p>Rose · Framboise · Litchi</p>
+            <span class="cake-sel-price">45000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(3)">
+          <div class="cake-sel-icon">🍋</div>
+          <div class="cake-sel-info">
+            <h3>Tarte Citron Meringuée</h3>
+            <p>Citron · Meringue · Sablé</p>
+            <span class="cake-sel-price">35000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(4)">
+          <div class="cake-sel-icon">🎂</div>
+          <div class="cake-sel-info">
+            <h3>Layer Cake Vanille</h3>
+            <p>Vanille · Caramel · Noix de pécan</p>
+            <span class="cake-sel-price">48000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(5)">
+          <div class="cake-sel-icon">🫐</div>
+          <div class="cake-sel-info">
+            <h3>Cheesecake Myrtille</h3>
+            <p>Myrtille · Fromage frais · Spéculoos</p>
+            <span class="cake-sel-price">40000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(6)">
+          <div class="cake-sel-icon">🥭</div>
+          <div class="cake-sel-info">
+            <h3>Exotique Mangue-Passion</h3>
+            <p>Mangue · Passion · Coco</p>
+            <span class="cake-sel-price">44000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(7)">
+          <div class="cake-sel-icon">🍮</div>
+          <div class="cake-sel-info">
+            <h3>Saint-Honoré</h3>
+            <p>Choux · Crème chiboust · Caramel</p>
+            <span class="cake-sel-price">55000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(8)">
+          <div class="cake-sel-icon">🍰</div>
+          <div class="cake-sel-info">
+            <h3>Forêt-Noire</h3>
+            <p>Cerise · Chantilly · Génoise cacao</p>
+            <span class="cake-sel-price">42000 FCFA</span>
+          </div>
+        </div>
+
+        <div class="cake-sel-card" onclick="selectCake(9)">
+          <div class="cake-sel-icon">🥐</div>
+          <div class="cake-sel-info">
+            <h3>Millefeuille Signature</h3>
+            <p>Feuilletage · Crème pâtissière · Glaçage</p>
+            <span class="cake-sel-price">45000 FCFA</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STEP 2: Ingredient customisation -->
+    <div id="step2" class="step-content hidden">
+      <button class="btn-back" onclick="goBack()">← Retour</button>
+      <div class="perso-layout">
+        <div class="perso-sidebar">
+          <div class="selected-cake-preview" id="cakePreview"></div>
+          <div class="price-box" id="priceBox"></div>
+          <button class="btn-primary" style="width:100%" onclick="goToStep3()">Commander ce gâteau →</button>
+        </div>
+        <div class="perso-ingredients" id="ingredientPanel"></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Order summary -->
+    <div id="step3" class="step-content hidden">
+      <div class="summary-box" id="summaryBox"></div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Maison Dorée</div>
+        <p class="footer-brand-desc">Pâtisserie d'exception depuis 2020.<br/>Chaque gâteau est une déclaration d'amour.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="commande.html">Commander</a></li>
+          <li><a href="personnaliser.html">Personnaliser</a></li>
+          <li><a href="service-client.html">Service client</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📞 +225 01 01 25 06 37</a></li>
+          <li><a href="#">✉️ Adouja33@gmail.com</a></li>
+          <li><a href="#">📍 Abidjan, Cocody</a></li>
+          <li><a href="#">⏰ Lun–Sam 7h–20h</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Maison Dorée — Tous droits réservés.</div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script>
+    const cakes = [
+      {
+        name: "Fraisier Royal", icon: "🍓", price: 3800,
+        description: "Un classique de la pâtisserie française revisité avec des fraises de saison.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g1_mousseline", label: "Crème mousseline vanille", info: "Onctueuse & légère" },
+            { id: "g1_genoiseV", label: "Génoise vanille", info: "Base moelleuse" },
+            { id: "g1_sirop", label: "Sirop de fraise", info: "Pour imbiber la génoise" },
+          ]},
+          { name: "Fruits & Garnitures", items: [
+            { id: "g1_fraises", label: "Fraises fraîches", info: "Du marché local" },
+            { id: "g1_coulis", label: "Coulis de fraise", info: "Sauce intense" },
+            { id: "g1_framboise", label: "Framboises", info: "Acidité bienvenue" },
+          ]},
+          { name: "Décoration", items: [
+            { id: "g1_fondant", label: "Fondant rose", info: "Glaçage lisse" },
+            { id: "g1_pistache", label: "Poudre de pistache", info: "Pour la couleur" },
+            { id: "g1_rosettes", label: "Rosettes de crème", info: "Décoration finale" },
+            { id: "g1_edible_flowers", label: "Fleurs comestibles", info: "Touche florale" },
+          ]},
+        ]
+      },
+      {
+        name: "Opéra Élite", icon: "🍫", price: 5200,
+        description: "La version de luxe de l'Opéra, avec chocolat de couverture 75% et feuille d'or.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g2_joconde", label: "Biscuit Joconde amande", info: "Signature de l'Opéra" },
+            { id: "g2_ganache", label: "Ganache chocolat 75%", info: "Intense et fondante" },
+            { id: "g2_beurre_moka", label: "Crème au beurre moka", info: "Café fort" },
+            { id: "g2_sirop_cafe", label: "Sirop café fort", info: "Imbibition parfumée" },
+          ]},
+          { name: "Toppings", items: [
+            { id: "g2_glacage", label: "Glaçage chocolat miroir", info: "Effet brillant" },
+            { id: "g2_or", label: "Feuilles d'or comestible", info: "Luxe absolu" },
+            { id: "g2_eclats_cacao", label: "Éclats de cacao", info: "Croquant" },
+          ]},
+          { name: "Extras", items: [
+            { id: "g2_caramel", label: "Filet de caramel salé", info: "Touche inattendue" },
+            { id: "g2_pepites", label: "Pépites de chocolat blanc", info: "Contraste" },
+          ]},
+        ]
+      },
+      {
+        name: "Ispahan Rose", icon: "🌸", price: 4500,
+        description: "La rencontre poétique de la rose, de la framboise et du litchi sur un macaron géant.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g3_macaron", label: "Macaron géant (coque)", info: "Croustillant & moelleux" },
+            { id: "g3_creme_rose", label: "Crème légère à la rose", info: "Parfumée, aérienne" },
+            { id: "g3_litchi", label: "Litchis en dés", info: "Saveur exotique" },
+          ]},
+          { name: "Fruits", items: [
+            { id: "g3_framboises", label: "Framboises entières", info: "Acidité fraîche" },
+            { id: "g3_coulis_framboise", label: "Coulis de framboise", info: "Sauce intense" },
+            { id: "g3_fraises_sauvages", label: "Fraises des bois", info: "Goût intense" },
+          ]},
+          { name: "Décoration", items: [
+            { id: "g3_petales", label: "Pétales de rose cristallisées", info: "Edible & décorative" },
+            { id: "g3_gelatin_rose", label: "Gélée de rose", info: "Glaçage rose" },
+            { id: "g3_pistache_dec", label: "Pistaches concassées", info: "Couleur verte" },
+            { id: "g3_poudre_or", label: "Poudre dorée", info: "Finition luxueuse" },
+          ]},
+        ]
+      },
+      {
+        name: "Tarte Citron Meringuée", icon: "🍋", price: 3500,
+        description: "La vivacité du citron sous un voile de meringue dorée à la flamme.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g4_sable", label: "Pâte sablée beurre", info: "Croustillante & dorée" },
+            { id: "g4_creme_citron", label: "Crème au citron", info: "Acide & sucrée" },
+            { id: "g4_zestes", label: "Zestes de citron bio", info: "Intense en saveur" },
+          ]},
+          { name: "Meringue", items: [
+            { id: "g4_meringue_ita", label: "Meringue italienne", info: "Légère & stable" },
+            { id: "g4_meringue_suisse", label: "Meringue suisse", info: "Brillante" },
+            { id: "g4_caramelisee", label: "Caramélisation à la flamme", info: "Touche brûlée" },
+          ]},
+          { name: "Extras", items: [
+            { id: "g4_citron_vert", label: "Citron vert", info: "Acidité supplémentaire" },
+            { id: "g4_fruits_rouges", label: "Fruits rouges", info: "Contraste coloré" },
+            { id: "g4_feuille_menthe", label: "Feuilles de menthe", info: "Fraîcheur" },
+          ]},
+        ]
+      },
+      {
+        name: "Layer Cake Vanille", icon: "🎂", price: 4800,
+        description: "Un grand gâteau à étages, vanilla, caramel et noix de pécan — festif et gourmand.",
+        categories: [
+          { name: "Base & Crème", items: [
+            { id: "g5_genoises", label: "3 génoises vanille", info: "Moelleuses, épaisses" },
+            { id: "g5_buttercream", label: "Buttercream vanille", info: "Riche & onctueuse" },
+            { id: "g5_caramel_creme", label: "Crème caramel", info: "Entre les couches" },
+          ]},
+          { name: "Garnitures", items: [
+            { id: "g5_pecan", label: "Noix de pécan grillées", info: "Croquantes" },
+            { id: "g5_toffee", label: "Sauce toffee", info: "Caramel anglais" },
+            { id: "g5_praline", label: "Pralinée noisette", info: "Intense" },
+          ]},
+          { name: "Finition", items: [
+            { id: "g5_naked_cake", label: "Style naked cake", info: "Tendance & rustique" },
+            { id: "g5_lissage", label: "Lissage parfait", info: "Finition nette" },
+            { id: "g5_drip", label: "Drip caramel", info: "Coulures décoratives" },
+            { id: "g5_fleurs", label: "Fleurs séchées", info: "Naturel & bohème" },
+          ]},
+        ]
+      },
+      {
+        name: "Cheesecake Myrtille", icon: "🫐", price: 4000,
+        description: "Un cheesecake crémeux sur base de spéculoos, couronné de myrtilles fraîches.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g6_speculoos", label: "Base Spéculoos", info: "Croustillante & épicée" },
+            { id: "g6_fromage", label: "Crème Philadelphia", info: "Fondante & douce" },
+            { id: "g6_creme_fraiche", label: "Crème fraîche", info: "Pour la légèreté" },
+          ]},
+          { name: "Fruits", items: [
+            { id: "g6_myrtilles", label: "Myrtilles fraîches", info: "Généreuses" },
+            { id: "g6_coulis_myr", label: "Coulis de myrtille", info: "Intense et brillant" },
+            { id: "g6_citron_cheesecake", label: "Zeste de citron", info: "Équilibre l'acidité" },
+            { id: "g6_cassis", label: "Cassis", info: "Plus d'intensité" },
+          ]},
+          { name: "Finition", items: [
+            { id: "g6_gelatin", label: "Nappage brillant", info: "Aspect miroir" },
+            { id: "g6_sucre_glace", label: "Sucre glace", info: "Finition légère" },
+          ]},
+        ]
+      },
+      {
+        name: "Exotique Mangue-Passion", icon: "🥭", price: 4400,
+        description: "L'évasion tropicale : mangue juteuse, maracuja pétillant et coco fondante.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g7_dacquoise", label: "Dacquoise coco", info: "Légère & parfumée" },
+            { id: "g7_mousse_mangue", label: "Mousse mangue", info: "Aérienne & intense" },
+            { id: "g7_insert_passion", label: "Insert maracuja", info: "Cœur acidulé" },
+          ]},
+          { name: "Fruits", items: [
+            { id: "g7_mangue_fraiche", label: "Mangue fraîche", info: "Morceaux généreux" },
+            { id: "g7_ananas", label: "Ananas", info: "Acidité tropicale" },
+            { id: "g7_kiwi", label: "Kiwi", info: "Fraîcheur verte" },
+            { id: "g7_fruits_passion", label: "Fruits de la passion entiers", info: "Décoratifs & savoureux" },
+          ]},
+          { name: "Décoration", items: [
+            { id: "g7_coco_rapee", label: "Noix de coco râpée", info: "Texture & saveur" },
+            { id: "g7_nappage_or", label: "Nappage brillant doré", info: "Effet soleil" },
+          ]},
+        ]
+      },
+      {
+        name: "Saint-Honoré", icon: "🍮", price: 5500,
+        description: "Le monument de la pâtisserie française : choux caramélisés, crème chiboust, caramel.",
+        categories: [
+          { name: "Base & Choux", items: [
+            { id: "g8_pate_feuilletee", label: "Pâte feuilletée", info: "Fond croustillant" },
+            { id: "g8_pate_choux", label: "Pâte à choux", info: "Choux légers & creux" },
+            { id: "g8_caramel_choux", label: "Caramel pour choux", info: "Enrobage brillant" },
+          ]},
+          { name: "Crèmes", items: [
+            { id: "g8_chiboust", label: "Crème Chiboust", info: "Signature St-Honoré" },
+            { id: "g8_chantilly", label: "Chantilly vanille", info: "Légèreté" },
+            { id: "g8_patissiere", label: "Crème pâtissière", info: "Généreuse" },
+          ]},
+          { name: "Finition", items: [
+            { id: "g8_caramel_pointe", label: "Fils de caramel", info: "Décoration spectaculaire" },
+            { id: "g8_sucre_tiré", label: "Sucre tiré", info: "Artisanal & délicat" },
+            { id: "g8_fraises_honore", label: "Fraises fraîches", info: "Garniture fraîche" },
+          ]},
+        ]
+      },
+      {
+        name: "Forêt-Noire", icon: "🍰", price: 4200,
+        description: "La grande classique allemande : cerises, chantilly, génoise au cacao et Kirsch.",
+        categories: [
+          { name: "Base", items: [
+            { id: "g9_genoisse_cacao", label: "Génoise au cacao", info: "Base sombre & moelleuse" },
+            { id: "g9_kirsch", label: "Kirsch (cerise eau-de-vie)", info: "Pour imbiber" },
+            { id: "g9_cerises", label: "Cerises amarena", info: "Confites & intenses" },
+          ]},
+          { name: "Crème & Garniture", items: [
+            { id: "g9_chantilly_fb", label: "Chantilly nature", info: "Légère & fraîche" },
+            { id: "g9_chantilly_vanille", label: "Chantilly vanillée", info: "Plus parfumée" },
+            { id: "g9_cerises_fraiches", label: "Cerises fraîches", info: "Garniture de dessus" },
+          ]},
+          { name: "Décoration", items: [
+            { id: "g9_copeaux", label: "Copeaux de chocolat noir", info: "Généreusement répartis" },
+            { id: "g9_chocolat_blanc", label: "Chocolat blanc en décor", info: "Contraste" },
+            { id: "g9_poudre_cacao", label: "Poudre de cacao", info: "Finition sombre" },
+            { id: "g9_cerise_dessus", label: "Cerise confite dessus", info: "Touche finale" },
+          ]},
+        ]
+      },
+      {
+        name: "Millefeuille Signature", icon: "🥐", price: 5000,
+        description: "1000 feuilles de pâte feuilletée, crème pâtissière parfumée et glaçage royal.",
+        categories: [
+          { name: "Feuilletage", items: [
+            { id: "g10_feuilletage", label: "Pâte feuilletée pur beurre", info: "27 couches" },
+            { id: "g10_caramelisation", label: "Caramélisation au four", info: "Croustillant & doré" },
+          ]},
+          { name: "Crème", items: [
+            { id: "g10_creme_pat", label: "Crème pâtissière vanille", info: "Classique & généreuse" },
+            { id: "g10_creme_pistache", label: "Crème pâtissière pistache", info: "Variante colorée" },
+            { id: "g10_praline_creme", label: "Crème pralinée", info: "Plus gourmande" },
+          ]},
+          { name: "Glaçage & Finition", items: [
+            { id: "g10_glacage_vanille", label: "Glaçage royal blanc", info: "Finition classique" },
+            { id: "g10_glacage_chocolat", label: "Glaçage chocolat", info: "Version intense" },
+            { id: "g10_marbrure", label: "Marbrure au chocolat", info: "Décor signature" },
+            { id: "g10_sucre_glace_fin", label: "Sucre glace final", info: "Touche légère" },
+          ]},
+        ]
+      },
+    ];
+
+    let selectedCake = null;
+    let ingredients = {};
+
+    function selectCake(index) {
+      selectedCake = index;
+      const cake = cakes[index];
+
+      //  ingredients 
+      ingredients = {};
+      cake.categories.forEach(cat => {
+        cat.items.forEach(item => { ingredients[item.id] = true; });
+      });
+
+      // Update step indicators
+      document.getElementById('step1-ind').classList.remove('active');
+      document.getElementById('step2-ind').classList.add('active');
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+
+      renderIngredientPanel(cake);
+      updateSidebar(cake);
+    }
+
+    function renderIngredientPanel(cake) {
+      const panel = document.getElementById('ingredientPanel');
+      panel.innerHTML = `<h2 class="perso-title">${cake.icon} Personnalisez les ingrédients</h2>
+      <p class="perso-sub">Cochez ou décochez les ingrédients selon vos préférences. Tout est sélectionné par défaut.</p>`;
+
+      cake.categories.forEach(cat => {
+        const catDiv = document.createElement('div');
+        catDiv.className = 'ingr-category';
+        catDiv.innerHTML = `<h3 class="ingr-cat-title">${cat.name}</h3>`;
+        const grid = document.createElement('div');
+        grid.className = 'ingr-grid';
+        cat.items.forEach(item => {
+          const el = document.createElement('label');
+          el.className = 'ingr-item checked';
+          el.id = `label_${item.id}`;
+          el.innerHTML = `
+            <input type="checkbox" checked onchange="toggleIngredient('${item.id}', this.checked, '${cat.name}')" />
+            <div class="ingr-item-content">
+              <span class="ingr-name">${item.label}</span>
+              <span class="ingr-info">${item.info}</span>
+            </div>
+            <div class="ingr-check-icon">✓</div>
+          `;
+          grid.appendChild(el);
+        });
+        catDiv.appendChild(grid);
+        panel.appendChild(catDiv);
+      });
+    }
+
+    function toggleIngredient(id, checked, catName) {
+      ingredients[id] = checked;
+      const label = document.getElementById(`label_${id}`);
+      label.classList.toggle('checked', checked);
+      label.classList.toggle('unchecked', !checked);
+      updateSidebar(cakes[selectedCake]);
+      showToast(checked ? `✓ Ajouté : ${getIngredientName(id)}` : `✗ Retiré : ${getIngredientName(id)}`);
+    }
+
+    function getIngredientName(id) {
+      const cake = cakes[selectedCake];
+      for (const cat of cake.categories) {
+        for (const item of cat.items) {
+          if (item.id === id) return item.label;
+        }
+      }
+      return id;
+    }
+
+    function updateSidebar(cake) {
+      const checked = Object.values(ingredients).filter(Boolean).length;
+      const total = Object.keys(ingredients).length;
+      document.getElementById('cakePreview').innerHTML = `
+        <div class="preview-icon">${cake.icon}</div>
+        <div class="preview-name">${cake.name}</div>
+        <div class="preview-desc">${cake.description}</div>
+        <div class="preview-count"><strong>${checked}/${total}</strong> ingrédients sélectionnés</div>
+      `;
+      const extra = total - checked;
+      const finalPrice = cake.price - extra * 1.5;
+      document.getElementById('priceBox').innerHTML = `
+        <div class="price-label">Prix estimé</div>
+        <div class="price-amount">${Math.max(finalPrice, cake.price * 0.7).toFixed(2)}Frcfa</div>
+        <div class="price-note">Livraison offerte dès 500Frcfa</div>
+      `;
+    }
+
+    function goBack() {
+      document.getElementById('step1-ind').classList.add('active');
+      document.getElementById('step2-ind').classList.remove('active');
+      document.getElementById('step1').classList.remove('hidden');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.add('hidden');
+    }
+
+    function goToStep3() {
+      document.getElementById('step2-ind').classList.remove('active');
+      document.getElementById('step3-ind').classList.add('active');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.remove('hidden');
+
+      const cake = cakes[selectedCake];
+      const selectedItems = [];
+      cake.categories.forEach(cat => {
+        cat.items.forEach(item => {
+          if (ingredients[item.id]) selectedItems.push({ label: item.label, cat: cat.name });
+        });
+      });
+
+      const grouped = {};
+      selectedItems.forEach(i => {
+        if (!grouped[i.cat]) grouped[i.cat] = [];
+        grouped[i.cat].push(i.label);
+      });
+
+      let html = `
+        <div class="summary-header">
+          <div class="summary-icon">${cake.icon}</div>
+          <h2>${cake.name}</h2>
+          <p>${cake.description}</p>
+        </div>
+        <div class="summary-ingredients">
+          <h3>Votre composition :</h3>
+      `;
+      Object.entries(grouped).forEach(([cat, items]) => {
+        html += `<div class="sum-cat"><h4>${cat}</h4><ul>${items.map(i => `<li>✓ ${i}</li>`).join('')}</ul></div>`;
+      });
+      html += `</div>
+        <div class="summary-actions">
+          <a href="commande.html" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem">🛒 Passer commande</a>
+          <button class="btn-outline" onclick="goBack()">← Modifier</button>
+        </div>
+      `;
+      document.getElementById('summaryBox').innerHTML = html;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 30));
+    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  </script>
+</body>
+</html>
