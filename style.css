@@ -239,7 +239,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   background: transparent;
-  color: var(--gold-light);
+  color: var(--text-dark);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
@@ -248,17 +248,17 @@ body {
   text-decoration: none;
   padding: 0.85rem 2.1rem;
   border-radius: 50px;
-  border: 1.5px solid rgba(212,168,67,0.4);
+  border: 1.5px solid rgba(63,42,26,0.4);
   cursor: pointer;
   transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
   backdrop-filter: blur(4px);
 }
 .btn-outline:hover {
-  background: rgba(212,168,67,0.12);
-  border-color: var(--gold);
-  color: var(--gold-light);
+  background: rgba(63,42,26,0.12);
+  border-color: var(--text-dark);
+  color: var(--text-dark);
   transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(212,168,67,0.2);
+  box-shadow: 0 0 20px rgba(63,42,26,0.2);
 }
 
 /* ─── PAGE HEADER (inner pages) ──────────────── */

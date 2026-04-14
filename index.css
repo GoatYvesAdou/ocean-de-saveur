@@ -61,15 +61,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(212,168,67,0.1);
-  color: var(--gold-light);
+  background: rgba(63,42,26,0.1);
+  color: var(--text-dark);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.45rem 1rem;
   border-radius: 50px;
-  border: 1px solid rgba(212,168,67,0.25);
+  border: 1px solid rgba(63,42,26,0.25);
   margin-bottom: 1.5rem;
   backdrop-filter: blur(4px);
 }
@@ -82,14 +82,6 @@
   line-height: 1.05;
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
-}
-.hero-title em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold-light), var(--apricot));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(212,168,67,0.4));
 }
 
 .hero-subtitle {
@@ -184,16 +176,31 @@
 
 /* ─── WELCOME SECTION ─────────────────────────── */
 .welcome-section {
-  background: linear-gradient(135deg, rgba(255,248,235,0.95), rgba(255,240,206,0.95));
+  background: linear-gradient(135deg, rgba(255,248,235,0.95), rgba(255,240,206,0.95)), ;
   padding: 4rem 2.5rem;
   position: relative;
   overflow: hidden;
+}
+.welcome-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  z-index: 0;
+}
+.welcome-inner {
+  position: relative;
+  z-index: 2;
 }
 .welcome-section::before {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(232,135,90,0.06), transparent);
+  z-index: 1;
 }
 .welcome-inner {
   max-width: 700px;

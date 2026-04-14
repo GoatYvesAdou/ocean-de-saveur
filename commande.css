@@ -25,6 +25,7 @@
   border: 1px solid rgba(212,168,67,0.1);
   box-shadow: 0 2px 14px rgba(0,0,0,0.35);
 }
+.page-header-deo { filter: blur(3px);}
 .size-pill { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; color: var(--text-light); }
 .size-pill strong { color: var(--text-dark); }
 .size-pill em { font-style: normal; color: var(--text-light); }
