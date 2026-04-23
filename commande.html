@@ -18,6 +18,7 @@
       <li><a href="index.html">Accueil</a></li>
       <li><a href="service-client.html">Service Client</a></li>
       <li><a href="commande.html" class="active">Passer une commande</a></li>
+      <li><a href="livraison.html">Livraison</a></li>
       <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
     </ul>
     <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
@@ -460,9 +461,9 @@
     }
     const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
     document.getElementById('recapAmount').innerHTML =
-      `<div class="recap-row"><span>Sous-total</span><strong>${total.toFixed(2)}€</strong></div>
+      `<div class="recap-row"><span>Sous-total</span><strong>${total.toLocaleString('fr-FR')} FCFA</strong></div>
        <div class="recap-row"><span>Livraison</span><strong>À définir</strong></div>
-       <div class="recap-row recap-total"><span>Total à prépayer</span><strong>${total.toFixed(2)}€</strong></div>`;
+       <div class="recap-row recap-total"><span>Total à prépayer</span><strong>${total.toLocaleString('fr-FR')} FCFA</strong></div>`;
     setStep(2);
   }
   function backToStep1() { setStep(1); }
@@ -482,7 +483,7 @@
     const ref   = 'MD-' + Date.now().toString(36).toUpperCase();
     const labels = { mobile_money:'Mobile Money', carte_bancaire:'Carte bancaire', especes:'Paiement à la livraison' };
     document.getElementById('confirmMsg').textContent =
-      `Commande de ${total}€ enregistrée. Mode : ${labels[mode]}.`;
+      `Commande de ${parseFloat(total).toLocaleString('fr-FR')} FCFA enregistrée. Mode : ${labels[mode]}.`;
     document.getElementById('confirmRef').textContent = '🔖 Référence : ' + ref;
     setStep(3);
     cart.length = 0; renderCart();

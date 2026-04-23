@@ -18,6 +18,7 @@
       <li><a href="index.html">Accueil</a></li>
       <li><a href="service-client.html">Service Client</a></li>
       <li><a href="commande.html">Passer une commande</a></li>
+      <li><a href="livraison.html" class="active">Livraison</a></li>
       <li><a href="classement.html">🏆 Classement</a></li>
       <li><a href="personnaliser.html" class="nav-cta">Personnaliser votre gâteau</a></li>
     </ul>
@@ -25,6 +26,9 @@
   </nav>
 
   <div class="page-header">
+    <video class="video-liv" autoplay loop muted>
+      <source src="fond partie livraison.mp4">
+    </video>
     <h1>🛵 Service de Livraison</h1>
     <p>Rapide, sécurisé et réfrigéré — votre gâteau livré dans les meilleures conditions</p>
   </div>
@@ -43,8 +47,8 @@
 
         <!-- MOTO -->
         <div class="compare-card moto-card" id="motoCard" onclick="selectMode('moto')">
-          <div class="compare-badge recommended">⚡ Recommandé</div>
-          <div class="compare-icon">🛵</div>
+          <div class="compare-badge recommended">Recommandé</div>
+          <div class="compare-icon"></div>
           <h3>Livraison à Moto</h3>
           <p>Rapide, agile, idéale pour les petites et moyennes commandes</p>
           <div class="compare-stats">
@@ -80,7 +84,7 @@
 
         <!-- VÉHICULE -->
         <div class="compare-card vehicule-card" id="vehiculeCard" onclick="selectMode('vehicule')">
-          <div class="compare-icon">🚗</div>
+          <div class="compare-icon"></div>
           <h3>Livraison en Véhicule</h3>
           <p>Spacieux, adapté aux grandes commandes et pièces montées fragiles</p>
           <div class="compare-stats">
@@ -243,7 +247,7 @@
         <div class="how-step">
           <div class="how-num">4</div>
           <div class="how-icon">🎉</div>
-          <h4>Vous régalez</h4>
+          <h4>Vous vous régalez</h4>
           <p>Profitez de votre gâteau frais livré à votre porte</p>
         </div>
       </div>
@@ -438,18 +442,18 @@
 
     /* Mettre à jour les cartes comparatives */
     document.getElementById('motoDelai').textContent  = z.motoMin + ' min';
-    document.getElementById('motoPrix').textContent   = z.motoFCFA.toLocaleString() + ' F';
+    document.getElementById('motoPrix').textContent   = z.motoFCFA.toLocaleString('fr-FR') + ' FCFA';
     document.getElementById('vehiculeDelai').textContent = z.vehiculeMin + ' min';
-    document.getElementById('vehiculePrix').textContent  = z.vehiculeFCFA.toLocaleString() + ' F';
+    document.getElementById('vehiculePrix').textContent  = z.vehiculeFCFA.toLocaleString('fr-FR') + ' FCFA';
 
     /* VS info */
     document.getElementById('vsInfo').innerHTML =
-      `<div class="vs-diff">Économisez<br><strong>${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F</strong><br>avec la moto</div>
+      `<div class="vs-diff">Économisez<br><strong>${(z.vehiculeFCFA - z.motoFCFA).toLocaleString('fr-FR')} FCFA</strong><br>avec la moto</div>
        <div class="vs-diff">Gagnez<br><strong>${z.vehiculeMin - z.motoMin} min</strong><br>avec la moto</div>`;
 
     /* Boutons toggle */
-    document.getElementById('btnMotoPrix').textContent    = '· ' + z.motoFCFA.toLocaleString() + ' F';
-    document.getElementById('btnVehiculePrix').textContent = '· ' + z.vehiculeFCFA.toLocaleString() + ' F';
+    document.getElementById('btnMotoPrix').textContent    = '· ' + z.motoFCFA.toLocaleString('fr-FR') + ' FCFA';
+    document.getElementById('btnVehiculePrix').textContent = '· ' + z.vehiculeFCFA.toLocaleString('fr-FR') + ' FCFA';
 
     /* Résumé */
     const prix  = selectedMode === 'moto' ? z.motoFCFA : z.vehiculeFCFA;
@@ -461,10 +465,10 @@
       <div class="srow"><span>Zone</span><strong>${z.label}</strong></div>
       <div class="srow"><span>Mode</span><strong>${selectedMode === 'moto' ? '🛵 Moto' : '🚗 Véhicule'}</strong></div>
       <div class="srow"><span>Délai estimé</span><strong>${delai} minutes</strong></div>
-      <div class="srow"><span>Tarif livraison</span><strong>${prix.toLocaleString()} FCFA</strong></div>
+      <div class="srow"><span>Tarif livraison</span><strong>${prix.toLocaleString('fr-FR')} FCFA</strong></div>
       ${selectedMode === 'moto'
         ? `<div class="srow highlight-moto"><span>⚡ Gain de temps vs voiture</span><strong>−${gain} min</strong></div>`
-        : `<div class="srow highlight-veh"><span>🛡️ Surcoût vs moto</span><strong>+${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F (+20%)</strong></div>`
+        : `<div class="srow highlight-veh"><span>🛡️ Surcoût vs moto</span><strong>+${(z.vehiculeFCFA - z.motoFCFA).toLocaleString('fr-FR')} FCFA (+20%)</strong></div>`
       }
     `;
 
@@ -494,14 +498,14 @@
         <div class="zone-row moto-row">
           <span>🛵 Moto</span>
           <span class="zone-time">${z.motoMin} min</span>
-          <span class="zone-price">${z.motoFCFA.toLocaleString()} F</span>
+          <span class="zone-price">${z.motoFCFA.toLocaleString('fr-FR')} FCFA</span>
         </div>
         <div class="zone-row veh-row">
           <span>🚗 Véhicule</span>
           <span class="zone-time">${z.vehiculeMin} min</span>
-          <span class="zone-price">${z.vehiculeFCFA.toLocaleString()} F</span>
+          <span class="zone-price">${z.vehiculeFCFA.toLocaleString('fr-FR')} FCFA</span>
         </div>
-        <div class="zone-economy">Moto : −${z.vehiculeMin - z.motoMin} min & −${(z.vehiculeFCFA - z.motoFCFA).toLocaleString()} F</div>
+        <div class="zone-economy">Moto : −${z.vehiculeMin - z.motoMin} min & −${(z.vehiculeFCFA - z.motoFCFA).toLocaleString('fr-FR')} FCFA</div>
       `;
       card.addEventListener('click', () => {
         document.getElementById('zoneSelect').value = z.id;
@@ -511,6 +515,10 @@
       grid.appendChild(card);
     });
   }
+
+  /* Initialisation page */
+  buildZonesGrid();
+  resetSummary();
 
   /* ══════════════════════════════════════════════
      LIVREURS — base de données simulée
@@ -557,7 +565,7 @@
 
     /* Remplir l'étape 1 */
     document.getElementById('livConfirmMsg').textContent =
-      `Livraison ${modeLabel} vers ${z.label} — délai estimé : ${delai} min — coût : ${prix.toLocaleString()} FCFA.`;
+      `Livraison ${modeLabel} vers ${z.label} — délai estimé : ${delai} min — coût : ${prix.toLocaleString('fr-FR')} FCFA.`;
     document.getElementById('livConfirmRef').textContent = '🔖 Référence : ' + currentRef;
     document.getElementById('livreurAssigned').innerHTML = `
       <div class="livreur-card-mini">
@@ -660,5 +668,8 @@
   }
 
   window.addEventListener('scroll', () =>
-    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 30));
-  function toggleMenu() { document.get
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30));
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  </script>
+</body>
+</html>

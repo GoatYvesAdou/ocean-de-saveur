@@ -1,41 +1,5 @@
 <?php
-/**
- * ═══════════════════════════════════════════════
- *  API.PHP — Maison Dorée · Backend
- *  Base : maison_doree · WAMP/phpMyAdmin
- * ═══════════════════════════════════════════════
- *
- *  ENDPOINTS DISPONIBLES :
- *
- *  [GÂTEAUX]
- *  GET  api.php?action=get_gateaux              → tous les gâteaux disponibles
- *  GET  api.php?action=get_gateau&id=1          → un gâteau par num_produits
- *  GET  api.php?action=get_gateaux_categorie&cat=2 → gâteaux par catégorie
- *
- *  [CATÉGORIES]
- *  GET  api.php?action=get_categories           → toutes les catégories
- *
- *  [COMMANDES]
- *  POST api.php?action=passer_commande          → créer une commande
- *    Body: {nom_client, num_tel, adresse_livraison, ville_livraison, 
- *           date_livraison_souhaitee?, note_client?, montant_total, 
- *           mode_paiement?, livraison_offerte?, email?}
- *  GET  api.php?action=get_commande&id=1        → détail d'une commande
- *  POST api.php?action=maj_statut               → mettre à jour le statut
- *    Body: {id_commande, statut}
- *
- *  [CLIENTS]
- *  POST api.php?action=creer_client             → créer/mettre à jour un client
- *  GET  api.php?action=get_client&tel=0700000000 → récupérer un client
- *
- *  [PAIEMENTS]
- *  POST api.php?action=enregistrer_paiement     → enregistrer un paiement
- *    Body: {num_paiement, montant_paiement, mode_paiement, num_commande, date_paiement?}
- *
- *  [CLASSEMENT]
- *  GET  api.php?action=get_classement           → classement des livreurs
- * ═══════════════════════════════════════════════
- */
+
 
 // ── HEADERS CORS & JSON ─────────────────────────
 header("Access-Control-Allow-Origin: *");
@@ -52,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');         // ← ton user phpMyAdmin (root par défaut WAMP)
 define('DB_PASS', '');             // ← ton mot de passe (vide par défaut WAMP)
-define('DB_NAME', 'maison_doree');
+define('DB_NAME', 'ocean_de_saveur');
 
 function getDB() {
     $pdo = new PDO(
@@ -190,28 +154,6 @@ try {
             break;
 
 
-        // ════════════════════════════════════════
-        //  COMMANDES
-        // ════════════════════════════════════════
-
-        /**
-         * POST api.php?action=passer_commande
-         * Crée une commande et enregistre le client si num_tel fourni
-         * 
-         * Body JSON attendu (champs requis marqués *) :
-         * {
-         *   "nom_client": "Marie Dupont",      *
-         *   "num_tel": "0700000000",           (optionnel - enregistre aussi le client)
-         *   "email": "marie@example.com",      (optionnel)
-         *   "adresse_livraison": "...",        *
-         *   "ville_livraison": "Abidjan",      *
-         *   "date_livraison_souhaitee": "2025-12-25", (optionnel)
-         *   "mode_paiement": "Mobile Money",   (optionnel - défaut: 'Non précisé')
-         *   "note_client": "Sans sucre svp",   (optionnel)
-         *   "montant_total": 5200.00,          * (en FCFA)
-         *   "livraison_offerte": 0             (optionnel - défaut: 0)
-         * }
-         */
         case 'passer_commande':
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') erreur('Méthode POST requise');
             $data = body();

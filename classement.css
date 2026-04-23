@@ -8,6 +8,30 @@
   padding: 2.5rem 2.5rem 5rem;
 }
 
+
+.classement-deo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.page-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header h1 {
+  background: none !important;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.65), 0 0 30px rgba(0,0,0,0.25);
+}
+
 /* ── CONTRÔLES ───────────────────────────────── */
 .cls-controls {
   display: flex;
