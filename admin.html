@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Océan de Saveur</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --or: #C9A84C;
+    --or-clair: #E8C97A;
+    --fond: #0D0D0D;
+    --surface: #161616;
+    --surface2: #1E1E1E;
+    --bord: #2A2A2A;
+    --texte: #F0EDE8;
+    --gris: #888;
+    --rouge: #E05252;
+    --vert: #52C97A;
+    --bleu: #5294E0;
+    --orange: #E08A52;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--fond);
+    color: var(--texte);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--bord);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--or);
+    letter-spacing: 0.04em;
+  }
+
+  .logo span { color: var(--texte); font-weight: 300; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; margin-left: 0.8rem; opacity: 0.5; }
+
+  .header-actions { display: flex; gap: 1rem; align-items: center; }
+
+  .badge-live {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem; color: var(--vert); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .badge-live::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--vert); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── LAYOUT ── */
+  main { padding: 2.5rem; max-width: 1400px; margin: 0 auto; }
+
+  /* ── STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--bord);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  .stat-card.visible { opacity: 1; transform: translateY(0); }
+  .stat-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--or), transparent);
+  }
+
+  .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gris); margin-bottom: 0.6rem; }
+  .stat-value { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--or); }
+  .stat-sub { font-size: 0.75rem; color: var(--gris); margin-top: 0.3rem; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+
+  .titre-section {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--texte);
+  }
+
+  .toolbar-right { display: flex; gap: 0.8rem; align-items: center; }
+
+  input[type="text"] {
+    background: var(--surface);
+    border: 1px solid var(--bord);
+    border-radius: 8px;
+    padding: 0.55rem 1rem;
+    color: var(--texte);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    width: 220px;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-color: var(--or); }
+  input[type="text"]::placeholder { color: var(--gris); }
+
+  select.filtre {
+    background: var(--surface);
+    border: 1px solid var(--bord);
+    border-radius: 8px;
+    padding: 0.55rem 1rem;
+    color: var(--texte);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .btn-refresh {
+    background: transparent;
+    border: 1px solid var(--bord);
+    border-radius: 8px;
+    padding: 0.55rem 1rem;
+    color: var(--gris);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-refresh:hover { border-color: var(--or); color: var(--or); }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--bord);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--bord);
+  }
+
+  th {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gris);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 1rem 1.2rem;
+    font-size: 0.875rem;
+    border-bottom: 1px solid var(--bord);
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tbody tr {
+    transition: background 0.15s;
+    animation: fadeRow 0.3s ease both;
+  }
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+
+  @keyframes fadeRow {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .id-cell {
+    font-family: 'Playfair Display', serif;
+    color: var(--or);
+    font-size: 1rem;
+  }
+
+  .nom-cell { font-weight: 500; }
+  .montant-cell { font-weight: 500; color: var(--or-clair); }
+
+  /* ── BADGES STATUT ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .badge::before { content:''; width:5px; height:5px; border-radius:50%; }
+
+  .badge-attente  { background: rgba(224,138,82,0.12); color: var(--orange); }
+  .badge-attente::before { background: var(--orange); }
+
+  .badge-confirmee { background: rgba(82,148,224,0.12); color: var(--bleu); }
+  .badge-confirmee::before { background: var(--bleu); }
+
+  .badge-preparation { background: rgba(201,168,76,0.12); color: var(--or); }
+  .badge-preparation::before { background: var(--or); }
+
+  .badge-livree { background: rgba(82,201,122,0.12); color: var(--vert); }
+  .badge-livree::before { background: var(--vert); }
+
+  .badge-annulee { background: rgba(224,82,82,0.12); color: var(--rouge); }
+  .badge-annulee::before { background: var(--rouge); }
+
+  /* ── SELECT STATUT ── */
+  select.statut-select {
+    background: transparent;
+    border: 1px solid var(--bord);
+    border-radius: 8px;
+    padding: 0.4rem 0.7rem;
+    color: var(--texte);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  select.statut-select:hover { border-color: var(--or); }
+
+  /* ── ÉTAT VIDE / CHARGEMENT ── */
+  .etat {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--gris);
+  }
+  .etat-icone { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
+  .etat-texte { font-size: 0.9rem; }
+
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2px solid var(--bord);
+    border-top-color: var(--or);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--surface2);
+    border: 1px solid var(--bord);
+    border-left: 3px solid var(--or);
+    border-radius: 10px;
+    padding: 0.9rem 1.4rem;
+    font-size: 0.85rem;
+    color: var(--texte);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 999;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Océan de Saveur <span>Administration</span></div>
+  <div class="header-actions">
+    <div class="badge-live" id="live-badge">Connecté</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- STATS -->
+  <div class="stats" id="stats">
+    <div class="stat-card" id="s-total">
+      <div class="stat-label">Total commandes</div>
+      <div class="stat-value" id="v-total">—</div>
+    </div>
+    <div class="stat-card" id="s-attente">
+      <div class="stat-label">En attente</div>
+      <div class="stat-value" id="v-attente" style="color:var(--orange)">—</div>
+    </div>
+    <div class="stat-card" id="s-livrees">
+      <div class="stat-label">Livrées</div>
+      <div class="stat-value" id="v-livrees" style="color:var(--vert)">—</div>
+    </div>
+    <div class="stat-card" id="s-ca">
+      <div class="stat-label">Chiffre d'affaires</div>
+      <div class="stat-value" id="v-ca">—</div>
+      <div class="stat-sub">FCFA</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="titre-section">Commandes</div>
+    <div class="toolbar-right">
+      <input type="text" id="recherche" placeholder="Rechercher un client…">
+      <select class="filtre" id="filtre-statut">
+        <option value="">Tous les statuts</option>
+        <option>En attente</option>
+        <option>Confirmée</option>
+        <option>En préparation</option>
+        <option>Livrée</option>
+        <option>Annulée</option>
+      </select>
+      <button class="btn-refresh" onclick="chargerCommandes()">↻ Actualiser</button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client</th>
+          <th>Téléphone</th>
+          <th>Ville</th>
+          <th>Montant</th>
+          <th>Paiement</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Modifier</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr>
+          <td colspan="9">
+            <div class="etat">
+              <div class="spinner"></div>
+              <div class="etat-texte">Chargement des commandes…</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+  const API = 'api/api.php';
+  let toutesCommandes = [];
+
+  // ── CHARGEMENT ──────────────────────────────────
+  async function chargerCommandes() {
+    try {
+      const r = await fetch(`${API}?action=get_commandes`);
+      const d = await r.json();
+      if (!d.succes) throw new Error(d.erreur);
+      toutesCommandes = d.commandes;
+      mettreAJourStats(toutesCommandes);
+      afficher(toutesCommandes);
+      animerStats();
+    } catch(e) {
+      afficherErreur(e.message);
+    }
+  }
+
+  // ── STATS ────────────────────────────────────────
+  function mettreAJourStats(data) {
+    document.getElementById('v-total').textContent = data.length;
+    document.getElementById('v-attente').textContent = data.filter(c => c.statut === 'En attente').length;
+    document.getElementById('v-livrees').textContent = data.filter(c => c.statut === 'Livrée').length;
+    const ca = data.reduce((s, c) => s + parseFloat(c.montant_total || 0), 0);
+    document.getElementById('v-ca').textContent = ca.toLocaleString('fr-FR');
+  }
+
+  function animerStats() {
+    document.querySelectorAll('.stat-card').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 80);
+    });
+  }
+
+  // ── AFFICHAGE TABLE ──────────────────────────────
+  function afficher(commandes) {
+    const tbody = document.getElementById('tbody');
+    if (!commandes.length) {
+      tbody.innerHTML = `<tr><td colspan="9"><div class="etat"><div class="etat-icone">📭</div><div class="etat-texte">Aucune commande trouvée</div></div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = commandes.map((c, i) => `
+      <tr style="animation-delay:${i * 30}ms">
+        <td class="id-cell">#${c.id_commande || c.total_commande || '—'}</td>
+        <td class="nom-cell">${esc(c.nom_client || '—')}</td>
+        <td style="color:var(--gris)">${esc(c.num_tel || '—')}</td>
+        <td>${esc(c.ville_livraison || '—')}</td>
+        <td class="montant-cell">${formatMontant(c.montant_total)}</td>
+        <td>${badgePaiement(c.statut_paiement)}</td>
+        <td style="color:var(--gris);font-size:0.8rem">${formatDate(c.date_livraison_souhaitee)}</td>
+        <td>${badgeStatut(c.statut)}</td>
+        <td>
+          <select class="statut-select" onchange="changerStatut(${c.id_commande || c.total_commande}, this.value)">
+            ${['En attente','Confirmée','En préparation','Livrée','Annulée'].map(s =>
+              `<option ${s === c.statut ? 'selected' : ''}>${s}</option>`
+            ).join('')}
+          </select>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ── CHANGER STATUT ───────────────────────────────
+  async function changerStatut(id, statut) {
+    try {
+      const r = await fetch(`${API}?action=maj_statut`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_commande: id, statut })
+      });
+      const d = await r.json();
+      if (!d.succes) throw new Error(d.erreur);
+      toast(`✓ Commande #${id} → ${statut}`);
+      await chargerCommandes();
+    } catch(e) {
+      toast(`✗ Erreur : ${e.message}`, true);
+    }
+  }
+
+  // ── FILTRES ──────────────────────────────────────
+  document.getElementById('recherche').addEventListener('input', filtrer);
+  document.getElementById('filtre-statut').addEventListener('change', filtrer);
+
+  function filtrer() {
+    const q = document.getElementById('recherche').value.toLowerCase();
+    const s = document.getElementById('filtre-statut').value;
+    const res = toutesCommandes.filter(c => {
+      const matchNom = (c.nom_client || '').toLowerCase().includes(q) ||
+                       (c.num_tel || '').includes(q);
+      const matchStatut = !s || c.statut === s;
+      return matchNom && matchStatut;
+    });
+    afficher(res);
+  }
+
+  // ── HELPERS ──────────────────────────────────────
+  function esc(s) {
+    return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function formatMontant(v) {
+    if (!v) return '—';
+    return parseFloat(v).toLocaleString('fr-FR') + ' FCFA';
+  }
+
+  function formatDate(d) {
+    if (!d) return '—';
+    return new Date(d).toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' });
+  }
+
+  function badgeStatut(s) {
+    const map = {
+      'En attente': 'attente',
+      'Confirmée': 'confirmee',
+      'En préparation': 'preparation',
+      'Livrée': 'livree',
+      'Annulée': 'annulee',
+    };
+    const cls = map[s] || 'attente';
+    return `<span class="badge badge-${cls}">${esc(s || 'En attente')}</span>`;
+  }
+
+  function badgePaiement(s) {
+    if (s === 'Payé') return `<span style="color:var(--vert);font-size:0.8rem">✓ Payé</span>`;
+    return `<span style="color:var(--gris);font-size:0.8rem">En attente</span>`;
+  }
+
+  function afficherErreur(msg) {
+    document.getElementById('tbody').innerHTML = `
+      <tr><td colspan="9"><div class="etat">
+        <div class="etat-icone">⚠️</div>
+        <div class="etat-texte">Erreur : ${esc(msg)}</div>
+      </div></td></tr>`;
+    document.getElementById('live-badge').textContent = 'Hors ligne';
+    document.getElementById('live-badge').style.color = 'var(--rouge)';
+  }
+
+  let toastTimer;
+  function toast(msg, erreur = false) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.style.borderLeftColor = erreur ? 'var(--rouge)' : 'var(--or)';
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  // ── INIT ─────────────────────────────────────────
+  chargerCommandes();
+</script>
+</body>
+</html>
