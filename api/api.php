@@ -405,6 +405,14 @@ try {
             reponse(['succes' => true, 'classement' => $stmt->fetchAll()]);
             break;
 
+            case 'get_commandes':
+    $stmt = $pdo->query("
+        SELECT * FROM commande
+        ORDER BY num_commande DESC
+    ");
+    reponse(['succes' => true, 'commandes' => $stmt->fetchAll()]);
+    break;
+
 
         // ════════════════════════════════════════
         //  ACTION INCONNUE
@@ -422,10 +430,3 @@ try {
  * GET api.php?action=get_commandes
  * Retourne toutes les commandes
  */
-case 'get_commandes':
-    $stmt = $pdo->query("
-        SELECT * FROM commande
-        ORDER BY id_commande DESC
-    ");
-    reponse(['succes' => true, 'commandes' => $stmt->fetchAll()]);
-    break;
