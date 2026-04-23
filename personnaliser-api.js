@@ -1,8 +1,8 @@
 /**
  * ═══════════════════════════════════════════════
- *  PERSONNALISER-API.JS — Maison Dorée
+ *  PERSONNALISER-API.JS — Océan de Saveurs
  *  Connecte personnaliser.html à l'API (api.php)
- *  À placer dans : C:\wamp64\www\maison-doree\
+ *  À placer dans : C:\wamp64\www\ocean-de-saveurs\
  *  À ajouter dans personnaliser.html : <script src="personnaliser-api.js" defer></script>
  * ═══════════════════════════════════════════════
  */

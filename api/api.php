@@ -17,8 +17,12 @@
  *
  *  [COMMANDES]
  *  POST api.php?action=passer_commande          → créer une commande
+ *    Body: {nom_client, num_tel, adresse_livraison, ville_livraison, 
+ *           date_livraison_souhaitee?, note_client?, montant_total, 
+ *           mode_paiement?, livraison_offerte?, email?}
  *  GET  api.php?action=get_commande&id=1        → détail d'une commande
  *  POST api.php?action=maj_statut               → mettre à jour le statut
+ *    Body: {id_commande, statut}
  *
  *  [CLIENTS]
  *  POST api.php?action=creer_client             → créer/mettre à jour un client
@@ -26,6 +30,7 @@
  *
  *  [PAIEMENTS]
  *  POST api.php?action=enregistrer_paiement     → enregistrer un paiement
+ *    Body: {num_paiement, montant_paiement, mode_paiement, num_commande, date_paiement?}
  *
  *  [CLASSEMENT]
  *  GET  api.php?action=get_classement           → classement des livreurs
@@ -191,17 +196,20 @@ try {
 
         /**
          * POST api.php?action=passer_commande
-         * Body JSON attendu :
+         * Crée une commande et enregistre le client si num_tel fourni
+         * 
+         * Body JSON attendu (champs requis marqués *) :
          * {
-         *   "nom_client": "Marie Dupont",
-         *   "num_tel": "0700000000",
-         *   "adresse_livraison": "Cocody, rue des Jardins",
-         *   "ville_livraison": "Abidjan",
-         *   "date_livraison_souhaitee": "2025-12-25",
-         *   "mode_paiement": "Mobile Money",
-         *   "note_client": "Sans sucre svp",
-         *   "montant_total": 5200.00,
-         *   "livraison_offerte": 0
+         *   "nom_client": "Marie Dupont",      *
+         *   "num_tel": "0700000000",           (optionnel - enregistre aussi le client)
+         *   "email": "marie@example.com",      (optionnel)
+         *   "adresse_livraison": "...",        *
+         *   "ville_livraison": "Abidjan",      *
+         *   "date_livraison_souhaitee": "2025-12-25", (optionnel)
+         *   "mode_paiement": "Mobile Money",   (optionnel - défaut: 'Non précisé')
+         *   "note_client": "Sans sucre svp",   (optionnel)
+         *   "montant_total": 5200.00,          * (en FCFA)
+         *   "livraison_offerte": 0             (optionnel - défaut: 0)
          * }
          */
         case 'passer_commande':
@@ -216,23 +224,29 @@ try {
             $stmt = $pdo->prepare("
                 INSERT INTO commande (
                     nom_client,
+                    num_tel,
+                    email,
                     date_livraison_souhaitee,
                     statut,
                     adresse_livraison,
                     ville_livraison,
                     note_client,
                     montant_total,
+                    total_commande,
                     mode_paiement,
                     statut_paiement,
                     livraison_offerte
-                ) VALUES (?, ?, 'En attente', ?, ?, ?, ?, ?, 'En attente', ?)
+                ) VALUES (?, ?, ?, ?, 'En attente', ?, ?, ?, ?, ?, ?, 'En attente', ?)
             ");
             $stmt->execute([
                 $data['nom_client'],
+                $data['num_tel'] ?? null,
+                $data['email'] ?? null,
                 $data['date_livraison_souhaitee'] ?? null,
                 $data['adresse_livraison'],
                 $data['ville_livraison'],
                 $data['note_client'] ?? null,
+                $data['montant_total'],
                 $data['montant_total'],
                 $data['mode_paiement'] ?? 'Non précisé',
                 $data['livraison_offerte'] ?? 0,
@@ -247,6 +261,7 @@ try {
                     VALUES (?, ?, ?, ?)
                     ON DUPLICATE KEY UPDATE
                         addr_liv = VALUES(addr_liv),
+                        email    = VALUES(email),
                         ville    = VALUES(ville)
                 ");
                 $stmtCli->execute([
@@ -271,14 +286,14 @@ try {
             $id = intval($_GET['id'] ?? 0);
             if (!$id) erreur('ID commande manquant');
 
-            $stmt = $pdo->prepare("SELECT * FROM commande WHERE total_commande = ?");
-            $stmt->execute([$id]);
+            $stmt = $pdo->prepare("SELECT * FROM commande WHERE id_commande = ? OR total_commande = ?");
+            $stmt->execute([$id, $id]);
             $commande = $stmt->fetch();
             if (!$commande) erreur('Commande introuvable', 404);
 
             // Paiement associé
             $stmtPay = $pdo->prepare("SELECT * FROM paiement WHERE `num-commande` = ?");
-            $stmtPay->execute([$id]);
+            $stmtPay->execute([$commande['id_commande'] ?? $id]);
             $commande['paiement'] = $stmtPay->fetch() ?: null;
 
             reponse(['succes' => true, 'commande' => $commande]);
@@ -297,8 +312,8 @@ try {
             $statutsValides = ['En attente', 'Confirmée', 'En préparation', 'Livrée', 'Annulée'];
             if (!in_array($data['statut'], $statutsValides)) erreur('Statut invalide');
 
-            $stmt = $pdo->prepare("UPDATE commande SET statut = ? WHERE total_commande = ?");
-            $stmt->execute([$data['statut'], $data['id_commande']]);
+            $stmt = $pdo->prepare("UPDATE commande SET statut = ? WHERE id_commande = ? OR total_commande = ?");
+            $stmt->execute([$data['statut'], $data['id_commande'], $data['id_commande']]);
 
             reponse(['succes' => true, 'message' => 'Statut mis à jour']);
             break;
@@ -386,9 +401,9 @@ try {
                 $data['num_commande'],
             ]);
 
-            // Mettre à jour le statut_paiement de la commande
-            $stmtUpd = $pdo->prepare("UPDATE commande SET statut_paiement = 'Payé' WHERE total_commande = ?");
-            $stmtUpd->execute([$data['num_commande']]);
+            // Mettre à jour le statut_paiement de la commande par id_commande OU total_commande
+            $stmtUpd = $pdo->prepare("UPDATE commande SET statut_paiement = 'Payé' WHERE id_commande = ? OR total_commande = ?");
+            $stmtUpd->execute([$data['num_commande'], $data['num_commande']]);
 
             reponse(['succes' => true, 'message' => 'Paiement enregistré'], 201);
             break;

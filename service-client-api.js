@@ -1,8 +1,8 @@
 /**
  * ═══════════════════════════════════════════════
- *  SERVICE-CLIENT-API.JS — Maison Dorée
+ *  SERVICE-CLIENT-API.JS — Océan de Saveurs
  *  Connecte service-client.html à l'API (api.php)
- *  À placer dans : C:\wamp64\www\maison-doree\
+ *  À placer dans : C:\wamp64\www\ocean-de-saveurs\
  *  À ajouter dans service-client.html :
  *  <script src="service-client-api.js" defer></script>
  * ═══════════════════════════════════════════════
@@ -248,5 +248,5 @@ function removeTypingIndicator(id) {
    5. INITIALISATION
 ══════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('✅ Service Client API initialisé — Maison Dorée');
+  console.log('✅ Service Client API initialisé — Océan de Saveurs');
 });

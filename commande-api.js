@@ -1,8 +1,8 @@
 /**
  * ═══════════════════════════════════════════════
- *  COMMANDE-API.JS — Maison Dorée
+ *  COMMANDE-API.JS — Océan de Saveurs
  *  Connecte commande.html à l'API (api.php)
- *  À placer dans : C:\wamp64\www\maison-doree\
+ *  À placer dans : C:\wamp64\www\ocean-de-saveurs\
  *  À ajouter dans commande.html : <script src="commande-api.js" defer></script>
  * ═══════════════════════════════════════════════
  */
@@ -164,9 +164,8 @@ async function confirmOrder() {
   const prenom  = document.getElementById('fPrenom')?.value  || '';
   const nom     = document.getElementById('fNom')?.value     || '';
   const adresse = document.getElementById('fAdresse')?.value || '';
-  const ville   = document.getElementById('fVille')?.value   || 'Abidjan';
+  const ville   = 'Abidjan'; // Valeur par défaut (pas de champ ville dans le formulaire)
   const tel     = document.getElementById('fTel')?.value     || '';
-  const email   = document.getElementById('fEmail')?.value   || '';
   const date    = document.getElementById('fDate')?.value    || null;
   const note    = document.getElementById('fNote')?.value    || '';
 
@@ -180,16 +179,15 @@ async function confirmOrder() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nom_client:              `${prenom} ${nom}`.trim(),
-        num_tel:                 tel,
-        email:                   email,
-        adresse_livraison:       adresse,
-        ville_livraison:         ville,
+        nom_client:               `${prenom} ${nom}`.trim(),
+        num_tel:                  tel,
+        adresse_livraison:        adresse,
+        ville_livraison:          ville,
         date_livraison_souhaitee: date,
-        note_client:             note,
-        montant_total:           total,
-        mode_paiement:           labels[mode],
-        livraison_offerte:       total >= 10000 ? 1 : 0,
+        note_client:              note,
+        montant_total:            total,
+        mode_paiement:            labels[mode],
+        livraison_offerte:        total >= 10000 ? 1 : 0,
       })
     });
     const dataCmd = await resCmd.json();

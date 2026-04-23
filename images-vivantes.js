@@ -1,5 +1,5 @@
 /**
- * IMAGES VIVANTES — Maison Dorée
+ * IMAGES VIVANTES — Océan de Saveurs
 
 
    BIBLIOTHÈQUE D'IMAGES
@@ -30,7 +30,7 @@ const IMGS = {
 
   /* ── BOUTIQUE ─── */
   boutique: [
-    { url: "wsection.jpeg", label: "Atelier Maison Dorée" },
+    { url: "wsection.jpeg", label: "Atelier Océan de Saveurs" },
     { url: "imgp.jpeg", label: "Vitrine pâtisserie" },
     { url: "cform.jpeg", label: "Plateau gourmands" },
     { url: "gateau fraise.png", label: "Ambiance boutique" },
@@ -145,7 +145,7 @@ try {
       whyVisual.innerHTML = '';
       const photoWrap = mkDiv('iv-why-wrap');
       photoWrap.innerHTML = `<div class="iv-why-badge">6 ans de savoir-faire ✦</div>`;
-      photoWrap.appendChild(mkImg(IMGS.boutique[1].url, 'Ambiance pâtisserie Maison Dorée', 'iv-why-photo iv-float-b'));
+      photoWrap.appendChild(mkImg(IMGS.boutique[1].url, 'Ambiance pâtisserie Océan de Saveurs', 'iv-why-photo iv-float-b'));
       whyVisual.appendChild(photoWrap);
     }
 
@@ -251,7 +251,7 @@ if (onService) {
   const scForm = document.querySelector('.sc-form-section');
   if (scForm) {
     scForm.insertBefore(
-      mkImg(IMGS.boutique[0].url, 'Atelier Maison Dorée', 'iv-sc-banner-photo'),
+      mkImg(IMGS.boutique[0].url, 'Atelier Océan de Saveurs', 'iv-sc-banner-photo'),
       scForm.firstChild
     );
   }
@@ -280,7 +280,7 @@ function buildStrip() {
   const strip = mkDiv('iv-strip');
   const track = mkDiv('iv-strip-track');
   [...IMGS.strip, ...IMGS.strip].forEach(src => {
-    track.appendChild(mkImg(src, 'Création Maison Dorée', 'iv-strip-item'));
+    track.appendChild(mkImg(src, 'Création Océan de Saveurs', 'iv-strip-item'));
   });
   strip.appendChild(track);
   return strip;
