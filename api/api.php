@@ -1,4 +1,36 @@
 <?php
+/**
+ * ═══════════════════════════════════════════════
+ *  API.PHP — Maison Dorée · Backend
+ *  Base : maison_doree · WAMP/phpMyAdmin
+ * ═══════════════════════════════════════════════
+ *
+ *  ENDPOINTS DISPONIBLES :
+ *
+ *  [GÂTEAUX]
+ *  GET  api.php?action=get_gateaux              → tous les gâteaux disponibles
+ *  GET  api.php?action=get_gateau&id=1          → un gâteau par num_produits
+ *  GET  api.php?action=get_gateaux_categorie&cat=2 → gâteaux par catégorie
+ *
+ *  [CATÉGORIES]
+ *  GET  api.php?action=get_categories           → toutes les catégories
+ *
+ *  [COMMANDES]
+ *  POST api.php?action=passer_commande          → créer une commande
+ *  GET  api.php?action=get_commande&id=1        → détail d'une commande
+ *  POST api.php?action=maj_statut               → mettre à jour le statut
+ *
+ *  [CLIENTS]
+ *  POST api.php?action=creer_client             → créer/mettre à jour un client
+ *  GET  api.php?action=get_client&tel=0700000000 → récupérer un client
+ *
+ *  [PAIEMENTS]
+ *  POST api.php?action=enregistrer_paiement     → enregistrer un paiement
+ *
+ *  [CLASSEMENT]
+ *  GET  api.php?action=get_classement           → classement des livreurs
+ * ═══════════════════════════════════════════════
+ */
 
 
 // ── HEADERS CORS & JSON ─────────────────────────
@@ -386,3 +418,14 @@ try {
 } catch (Exception $e) {
     erreur('Erreur serveur : ' . $e->getMessage(), 500);
 }
+/**
+ * GET api.php?action=get_commandes
+ * Retourne toutes les commandes
+ */
+case 'get_commandes':
+    $stmt = $pdo->query("
+        SELECT * FROM commande
+        ORDER BY id_commande DESC
+    ");
+    reponse(['succes' => true, 'commandes' => $stmt->fetchAll()]);
+    break;
